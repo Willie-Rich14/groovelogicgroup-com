@@ -1,0 +1,472 @@
+<title>AI Tools Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,440;0,9..144,600;0,9..144,680;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bone:#F4EFE6;
+    --ink:#101114;
+    --brass:#C9A24A;
+    --brass-dim: rgba(201,162,74,.28);
+
+    --bg: var(--bone);
+    --fg: var(--ink);
+    --fg-muted: rgba(16,17,20,.64);
+    --surface: #FFFDF7;
+    --surface-2: #ECE5D6;
+    --line: rgba(16,17,20,.14);
+    --accent: var(--brass);
+    --accent-fg: var(--ink);
+    --shadow: 0 18px 40px -22px rgba(16,17,20,.35);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: var(--ink);
+      --fg: var(--bone);
+      --fg-muted: rgba(244,239,230,.62);
+      --surface: #191a1e;
+      --surface-2: #212228;
+      --line: rgba(244,239,230,.14);
+      --accent: var(--brass);
+      --accent-fg: var(--ink);
+      --shadow: 0 18px 44px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: var(--ink);
+    --fg: var(--bone);
+    --fg-muted: rgba(244,239,230,.62);
+    --surface: #191a1e;
+    --surface-2: #212228;
+    --line: rgba(244,239,230,.14);
+    --accent: var(--brass);
+    --accent-fg: var(--ink);
+    --shadow: 0 18px 44px -20px rgba(0,0,0,.6);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Manrope', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .logo-dark{ display:none; }
+  :root[data-theme="dark"] .logo-light{ display:none; }
+  :root[data-theme="dark"] .logo-dark{ display:block; }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .logo-light{ display:none; }
+    :root:not([data-theme="light"]) .logo-dark{ display:block; }
+  }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 clamp(20px,5vw,56px); }
+
+  h1,h2,h3{ font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; letter-spacing:-.01em; }
+  em{ font-style:italic; color:var(--accent); }
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, Menlo, monospace; font-variant-numeric:tabular-nums; }
+  .eyebrow{
+    display:flex; align-items:center; gap:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--fg-muted);
+    margin:0 0 18px;
+  }
+  .bar{ display:inline-block; width:34px; height:3px; background:var(--brass); flex:none; }
+  .bar.v{ width:3px; height:100%; }
+
+  a{ color:inherit; }
+  .btn{
+    appearance:none; border:none; cursor:pointer; font-family:'Manrope', sans-serif;
+    font-weight:700; font-size:15.5px; letter-spacing:.01em;
+    padding:15px 26px; border-radius:3px; display:inline-flex; align-items:center; gap:10px;
+    transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
+    text-decoration:none;
+  }
+  .btn-primary{ background:var(--accent); color:var(--accent-fg); box-shadow:var(--shadow); }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-primary:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+  .btn-ghost{ background:transparent; color:var(--fg); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--accent); }
+
+  /* header */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
+  .brand-mark{ height:26px; width:auto; display:block; }
+  header .tag{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-muted); display:none; }
+  @media(min-width:640px){ header .tag{ display:block; } }
+
+  /* hero */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:clamp(64px,10vw,108px) 0 clamp(48px,7vw,84px);
+    border-bottom:1px solid var(--line);
+  }
+  .grooves{
+    position:absolute; right:clamp(-180px,-8vw,-40px); top:50%; translate:0 -50%;
+    width:min(64vw,640px); aspect-ratio:1;
+    border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at center,
+        var(--line) 0 1.5px,
+        transparent 1.5px 22px);
+    -webkit-mask-image:radial-gradient(circle at center, black 55%, transparent 78%);
+            mask-image:radial-gradient(circle at center, black 55%, transparent 78%);
+    pointer-events:none;
+  }
+  .hero-grid{ position:relative; display:grid; gap:40px; }
+  .hero h1{ font-size:clamp(34px,5.4vw,58px); line-height:1.06; font-weight:600; max-width:15ch; }
+  .hero .dek{ margin-top:20px; font-size:18px; line-height:1.6; color:var(--fg-muted); max-width:46ch; }
+  .hero-cta{ margin-top:32px; display:flex; flex-wrap:wrap; align-items:center; gap:18px; }
+  .hero-cta .guarantee{ font-size:13.5px; color:var(--fg-muted); max-width:26ch; }
+
+  .price-card{
+    margin-top:40px; display:inline-flex; align-items:baseline; gap:18px;
+    background:var(--surface); border:1px solid var(--line); border-radius:4px;
+    padding:18px 26px; box-shadow:var(--shadow);
+  }
+  .price-card .num{ font-family:'IBM Plex Mono',monospace; font-size:38px; font-weight:600; }
+  .price-card .label{ font-size:13px; color:var(--fg-muted); max-width:20ch; line-height:1.4; }
+
+  section{ padding:clamp(56px,8vw,92px) 0; }
+  .section-head{ max-width:60ch; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(26px,3.4vw,36px); font-weight:600; }
+  .section-head p{ margin-top:14px; color:var(--fg-muted); font-size:16px; line-height:1.6; }
+
+  /* stat strip */
+  .stats{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden;
+  }
+  @media(min-width:760px){ .stats{ grid-template-columns:repeat(4,1fr); } }
+  .stat{ background:var(--surface); padding:26px 20px; }
+  .stat .n{ font-family:'IBM Plex Mono',monospace; font-size:clamp(26px,3vw,32px); font-weight:600; color:var(--accent); }
+  .stat .l{ margin-top:6px; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-muted); }
+
+  .feel{ margin-top:40px; display:grid; gap:14px; }
+  .feel li{ display:flex; gap:14px; align-items:flex-start; font-size:15.5px; line-height:1.55; color:var(--fg); }
+  .feel .dot{ flex:none; width:7px; height:7px; margin-top:8px; background:var(--accent); border-radius:1px; }
+
+  /* phases */
+  .phases{ position:relative; display:grid; gap:2px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  @media(min-width:820px){ .phases{ grid-template-columns:repeat(4,1fr); } }
+  .phase{ background:var(--surface); padding:30px 26px; position:relative; }
+  .phase .n{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:13px; letter-spacing:.08em; }
+  .phase h3{ margin-top:14px; font-size:19px; font-weight:600; }
+  .phase p{ margin-top:10px; font-size:14.5px; line-height:1.55; color:var(--fg-muted); }
+
+  /* report contents */
+  .report-list{ margin-top:36px; display:grid; gap:0; border-top:1px solid var(--line); }
+  .report-list div{ display:flex; gap:18px; padding:16px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+  .report-list .i{ font-family:'IBM Plex Mono',monospace; color:var(--fg-muted); font-size:13px; flex:none; width:2ch; }
+  .report-list .t{ font-weight:600; flex:none; width:15ch; }
+  .report-list .d{ color:var(--fg-muted); font-size:14.5px; }
+
+  /* menu chips */
+  .chips{ margin-top:36px; display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{ border:1px solid var(--line); border-radius:100px; padding:9px 16px; font-size:13.5px; color:var(--fg-muted); background:var(--surface); }
+
+  /* form */
+  .form-section{ background:var(--surface-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .form-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:clamp(28px,5vw,48px); box-shadow:var(--shadow);
+    display:grid; gap:28px;
+  }
+  @media(min-width:760px){ .form-card{ grid-template-columns:1fr 1fr; align-items:start; } }
+  .form-copy h2{ font-size:clamp(24px,3vw,30px); font-weight:600; }
+  .form-copy p{ margin-top:14px; color:var(--fg-muted); font-size:15px; line-height:1.6; }
+  .form-copy ul{ margin:22px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+  .form-copy li{ font-size:14px; color:var(--fg); display:flex; gap:10px; }
+  .form-copy li .dot{ flex:none; width:7px; height:7px; margin-top:7px; background:var(--accent); border-radius:1px; }
+
+  form{ display:grid; gap:14px; }
+  label{ font-size:12.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--fg-muted); display:block; margin-bottom:6px; }
+  .field input, .field select{
+    width:100%; font:inherit; font-size:15px; padding:12px 14px; border-radius:3px;
+    border:1px solid var(--line); background:var(--bg); color:var(--fg);
+  }
+  .field input:focus, .field select:focus{ outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent); }
+  .row2{ display:grid; gap:14px; }
+  @media(min-width:520px){ .row2.two{ grid-template-columns:1fr 1fr; } }
+  form .btn-primary{ justify-content:center; margin-top:6px; width:100%; }
+  .fineprint{ font-size:12px; color:var(--fg-muted); margin-top:2px; }
+  .status{ font-size:13.5px; margin-top:4px; min-height:1.2em; }
+  .status.ok{ color:var(--accent); font-weight:600; }
+
+  footer{ padding:44px 0 56px; }
+  footer .row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; padding-top:28px; border-top:1px solid var(--line); }
+  footer .tagline{ font-size:13px; color:var(--fg-muted); }
+  footer .brand-mark{ height:20px; }
+  footer .legal{ font-size:12px; color:var(--fg-muted); margin-top:14px; }
+
+  .reveal{ animation:rise .7s ease both; }
+  .reveal.d1{ animation-delay:.08s; }
+  .reveal.d2{ animation-delay:.16s; }
+  .reveal.d3{ animation-delay:.24s; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+</style>
+
+<header>
+  <div class="wrap">
+    <a href="#top" aria-label="Groove Logic Group home" style="display:flex;align-items:center;">
+      <svg class="brand-mark logo-light" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group">
+        <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+        <path fill="#101114" d="M357.564 110.474Q353.3 112.688 347.601 114.082Q341.902 115.476 335.178 115.476Q328.208 115.476 322.345 113.262Q316.482 111.048 312.259 107.03Q308.036 103.012 305.658 97.395Q303.28 91.778 303.28 84.89Q303.28 77.92 305.699 72.262Q308.118 66.604 312.382 62.627Q316.646 58.65 322.386 56.518Q328.126 54.386 334.768 54.386Q341.656 54.386 347.56 56.477Q353.464 58.568 357.154 62.094L348.298 72.18Q346.248 69.802 342.886 68.285Q339.524 66.768 335.26 66.768Q331.57 66.768 328.454 68.121Q325.338 69.474 323.042 71.893Q320.746 74.312 319.475 77.633Q318.204 80.954 318.204 84.89Q318.204 88.908 319.352 92.27Q320.5 95.632 322.755 98.051Q325.01 100.47 328.331 101.823Q331.652 103.176 335.916 103.176Q338.376 103.176 340.59 102.807Q342.804 102.438 344.69 101.618V91.04H333.62V79.724H357.564V110.474Z M403.122 114.0 390.576 90.958H385.82V114.0H372.044V55.944H394.184Q398.366 55.944 402.343 56.805Q406.32 57.666 409.477 59.716Q412.634 61.766 414.52 65.128Q416.406 68.49 416.406 73.492Q416.406 79.396 413.208 83.414Q410.01 87.432 404.352 89.154L419.522 114.0ZM402.548 73.738Q402.548 71.688 401.687 70.417Q400.826 69.146 399.473 68.449Q398.12 67.752 396.439 67.506Q394.758 67.26 393.2 67.26H385.738V80.79H392.38Q394.102 80.79 395.906 80.503Q397.71 80.216 399.186 79.478Q400.662 78.74 401.605 77.346Q402.548 75.952 402.548 73.738Z M489.926 84.726Q489.926 91.614 487.548 97.313Q485.17 103.012 480.947 107.071Q476.724 111.13 470.902 113.344Q465.08 115.558 458.274 115.558Q451.468 115.558 445.687 113.344Q439.906 111.13 435.683 107.071Q431.46 103.012 429.082 97.313Q426.704 91.614 426.704 84.726Q426.704 77.756 429.082 72.139Q431.46 66.522 435.683 62.586Q439.906 58.65 445.687 56.518Q451.468 54.386 458.274 54.386Q465.08 54.386 470.902 56.518Q476.724 58.65 480.947 62.586Q485.17 66.522 487.548 72.139Q489.926 77.756 489.926 84.726ZM474.92 84.726Q474.92 80.954 473.69 77.674Q472.46 74.394 470.287 72.057Q468.114 69.72 465.039 68.367Q461.964 67.014 458.274 67.014Q454.584 67.014 451.55 68.367Q448.516 69.72 446.302 72.057Q444.088 74.394 442.899 77.674Q441.71 80.954 441.71 84.726Q441.71 88.662 442.94 91.983Q444.17 95.304 446.343 97.682Q448.516 100.06 451.55 101.413Q454.584 102.766 458.274 102.766Q461.964 102.766 464.998 101.413Q468.032 100.06 470.246 97.682Q472.46 95.304 473.69 91.983Q474.92 88.662 474.92 84.726Z M562.708 84.726Q562.708 91.614 560.33 97.313Q557.952 103.012 553.729 107.071Q549.506 111.13 543.684 113.344Q537.862 115.558 531.056 115.558Q524.25 115.558 518.469 113.344Q512.688 111.13 508.465 107.071Q504.242 103.012 501.864 97.313Q499.486 91.614 499.486 84.726Q499.486 77.756 501.864 72.139Q504.242 66.522 508.465 62.586Q512.688 58.65 518.469 56.518Q524.25 54.386 531.056 54.386Q537.862 54.386 543.684 56.518Q549.506 58.65 553.729 62.586Q557.952 66.522 560.33 72.139Q562.708 77.756 562.708 84.726ZM547.702 84.726Q547.702 80.954 546.472 77.674Q545.242 74.394 543.069 72.057Q540.896 69.72 537.821 68.367Q534.746 67.014 531.056 67.014Q527.366 67.014 524.332 68.367Q521.298 69.72 519.084 72.057Q516.87 74.394 515.681 77.674Q514.492 80.954 514.492 84.726Q514.492 88.662 515.722 91.983Q516.952 95.304 519.125 97.682Q521.298 100.06 524.332 101.413Q527.366 102.766 531.056 102.766Q534.746 102.766 537.78 101.413Q540.814 100.06 543.028 97.682Q545.242 95.304 546.472 91.983Q547.702 88.662 547.702 84.726Z M603.756 114.0H589.734L567.758 55.944H583.502L596.95 97.108H597.278L610.644 55.944H626.142Z M633.898 114.0V55.944H672.93V67.834H647.428V78.74H671.536V89.974H647.428V102.028H674.406V114.0Z"/>
+        <path fill="#101114" d="M308.325 176.04H322.545V180.0H303.87V148.14H308.325Z M371.495 164.025Q371.495 167.715 370.213 170.798Q368.93 173.88 366.68 176.108Q364.43 178.335 361.325 179.573Q358.22 180.81 354.575 180.81Q350.93 180.81 347.847 179.573Q344.765 178.335 342.515 176.108Q340.265 173.88 339.005 170.798Q337.745 167.715 337.745 164.025Q337.745 160.29 339.005 157.208Q340.265 154.125 342.515 151.943Q344.765 149.76 347.847 148.545Q350.93 147.33 354.575 147.33Q358.22 147.33 361.325 148.545Q364.43 149.76 366.68 151.943Q368.93 154.125 370.213 157.208Q371.495 160.29 371.495 164.025ZM366.68 164.025Q366.68 161.415 365.825 159.098Q364.97 156.78 363.395 155.025Q361.82 153.27 359.593 152.258Q357.365 151.245 354.575 151.245Q351.83 151.245 349.603 152.258Q347.375 153.27 345.823 155.025Q344.27 156.78 343.415 159.098Q342.56 161.415 342.56 164.025Q342.56 166.68 343.415 169.02Q344.27 171.36 345.845 173.093Q347.42 174.825 349.625 175.815Q351.83 176.805 354.575 176.805Q357.32 176.805 359.57 175.815Q361.82 174.825 363.395 173.093Q364.97 171.36 365.825 169.02Q366.68 166.68 366.68 164.025Z M414.1 154.71Q412.66 153.135 410.433 152.19Q408.205 151.245 405.46 151.245Q402.67 151.245 400.42 152.258Q398.17 153.27 396.595 155.025Q395.02 156.78 394.165 159.098Q393.31 161.415 393.31 164.025Q393.31 166.68 394.165 169.02Q395.02 171.36 396.595 173.093Q398.17 174.825 400.465 175.815Q402.76 176.805 405.595 176.805Q407.845 176.805 409.735 176.4Q411.625 175.995 413.02 175.23V166.365H405.955V162.585H417.43V178.02Q414.91 179.37 411.94 180.09Q408.97 180.81 405.46 180.81Q401.725 180.81 398.598 179.573Q395.47 178.335 393.22 176.108Q390.97 173.88 389.71 170.798Q388.45 167.715 388.45 164.025Q388.45 160.29 389.733 157.208Q391.015 154.125 393.288 151.943Q395.56 149.76 398.665 148.545Q401.77 147.33 405.415 147.33Q409.24 147.33 412.233 148.455Q415.225 149.58 417.205 151.47Z M442.035 180.0H437.58V148.14H442.035Z M489.59 175.05Q487.7 177.615 484.685 179.213Q481.67 180.81 477.44 180.81Q473.795 180.81 470.713 179.573Q467.63 178.335 465.403 176.108Q463.175 173.88 461.915 170.798Q460.655 167.715 460.655 164.025Q460.655 160.29 461.938 157.208Q463.22 154.125 465.493 151.943Q467.765 149.76 470.87 148.545Q473.975 147.33 477.62 147.33Q479.24 147.33 480.905 147.645Q482.57 147.96 484.1 148.59Q485.63 149.22 486.89 150.143Q488.15 151.065 489.05 152.28L485.54 154.98Q484.37 153.36 482.233 152.303Q480.095 151.245 477.62 151.245Q474.83 151.245 472.603 152.258Q470.375 153.27 468.8 155.025Q467.225 156.78 466.37 159.098Q465.515 161.415 465.515 164.025Q465.515 166.725 466.348 169.065Q467.18 171.405 468.733 173.138Q470.285 174.87 472.513 175.86Q474.74 176.85 477.485 176.85Q480.185 176.85 482.39 175.77Q484.595 174.69 486.035 172.62Z M554.415 154.71Q552.975 153.135 550.748 152.19Q548.52 151.245 545.775 151.245Q542.985 151.245 540.735 152.258Q538.485 153.27 536.91 155.025Q535.335 156.78 534.48 159.098Q533.625 161.415 533.625 164.025Q533.625 166.68 534.48 169.02Q535.335 171.36 536.91 173.093Q538.485 174.825 540.78 175.815Q543.075 176.805 545.91 176.805Q548.16 176.805 550.05 176.4Q551.94 175.995 553.335 175.23V166.365H546.27V162.585H557.745V178.02Q555.225 179.37 552.255 180.09Q549.285 180.81 545.775 180.81Q542.04 180.81 538.913 179.573Q535.785 178.335 533.535 176.108Q531.285 173.88 530.025 170.798Q528.765 167.715 528.765 164.025Q528.765 160.29 530.048 157.208Q531.33 154.125 533.603 151.943Q535.875 149.76 538.98 148.545Q542.085 147.33 545.73 147.33Q549.555 147.33 552.548 148.455Q555.54 149.58 557.52 151.47Z M582.35 180.0H577.895V148.14H588.11Q590.405 148.14 592.475 148.613Q594.545 149.085 596.098 150.12Q597.65 151.155 598.55 152.843Q599.45 154.53 599.45 156.96Q599.45 160.47 597.29 162.63Q595.13 164.79 591.71 165.375L600.62 180.0H595.22L587.12 165.825H582.35ZM582.35 162.09H587.48Q589.055 162.09 590.405 161.82Q591.755 161.55 592.768 160.943Q593.78 160.335 594.365 159.368Q594.95 158.4 594.95 156.96Q594.95 155.52 594.365 154.553Q593.78 153.585 592.813 153.0Q591.845 152.415 590.54 152.168Q589.235 151.92 587.795 151.92H582.35Z M650.155 164.025Q650.155 167.715 648.873 170.798Q647.59 173.88 645.34 176.108Q643.09 178.335 639.985 179.573Q636.88 180.81 633.235 180.81Q629.59 180.81 626.507 179.573Q623.425 178.335 621.175 176.108Q618.925 173.88 617.665 170.798Q616.405 167.715 616.405 164.025Q616.405 160.29 617.665 157.208Q618.925 154.125 621.175 151.943Q623.425 149.76 626.507 148.545Q629.59 147.33 633.235 147.33Q636.88 147.33 639.985 148.545Q643.09 149.76 645.34 151.943Q647.59 154.125 648.873 157.208Q650.155 160.29 650.155 164.025ZM645.34 164.025Q645.34 161.415 644.485 159.098Q643.63 156.78 642.055 155.025Q640.48 153.27 638.253 152.258Q636.025 151.245 633.235 151.245Q630.49 151.245 628.263 152.258Q626.035 153.27 624.483 155.025Q622.93 156.78 622.075 159.098Q621.22 161.415 621.22 164.025Q621.22 166.68 622.075 169.02Q622.93 171.36 624.505 173.093Q626.08 174.825 628.285 175.815Q630.49 176.805 633.235 176.805Q635.98 176.805 638.23 175.815Q640.48 174.825 642.055 173.093Q643.63 171.36 644.485 169.02Q645.34 166.68 645.34 164.025Z M680.88 180.81Q677.73 180.81 675.39 179.753Q673.05 178.695 671.52 176.94Q669.99 175.185 669.248 172.913Q668.505 170.64 668.505 168.21V148.14H672.96V167.94Q672.96 169.56 673.365 171.158Q673.77 172.755 674.693 174.015Q675.615 175.275 677.123 176.04Q678.63 176.805 680.88 176.805Q683.085 176.805 684.615 176.04Q686.145 175.275 687.068 174.015Q687.99 172.755 688.395 171.158Q688.8 169.56 688.8 167.94V148.14H693.255V168.21Q693.255 170.64 692.513 172.913Q691.77 175.185 690.24 176.94Q688.71 178.695 686.37 179.753Q684.03 180.81 680.88 180.81Z M713.27 148.14H722.99Q725.555 148.14 727.67 148.658Q729.785 149.175 731.27 150.255Q732.755 151.335 733.565 153.0Q734.375 154.665 734.375 157.005Q734.375 159.39 733.498 161.1Q732.62 162.81 731.068 163.89Q729.515 164.97 727.378 165.488Q725.24 166.005 722.765 166.005H717.725V180.0H713.27ZM717.725 162.225H722.45Q724.07 162.225 725.443 161.933Q726.815 161.64 727.805 161.033Q728.795 160.425 729.335 159.435Q729.875 158.445 729.875 157.005Q729.875 155.565 729.313 154.598Q728.75 153.63 727.783 153.023Q726.815 152.415 725.465 152.168Q724.115 151.92 722.54 151.92H717.725Z"/>
+      </svg>
+      <svg class="brand-mark logo-dark" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group">
+        <use href="#gh"/>
+      </svg>
+    </a>
+    <span class="tag">AI Tools Assessment</span>
+    <a href="#reserve" class="btn btn-ghost">Reserve a slot</a>
+  </div>
+</header>
+
+<!-- hidden reverse-brass wordmark definition, referenced by header dark logo -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="gh">
+      <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+      <path fill="#F4EFE6" d="M357.564 110.474Q353.3 112.688 347.601 114.082Q341.902 115.476 335.178 115.476Q328.208 115.476 322.345 113.262Q316.482 111.048 312.259 107.03Q308.036 103.012 305.658 97.395Q303.28 91.778 303.28 84.89Q303.28 77.92 305.699 72.262Q308.118 66.604 312.382 62.627Q316.646 58.65 322.386 56.518Q328.126 54.386 334.768 54.386Q341.656 54.386 347.56 56.477Q353.464 58.568 357.154 62.094L348.298 72.18Q346.248 69.802 342.886 68.285Q339.524 66.768 335.26 66.768Q331.57 66.768 328.454 68.121Q325.338 69.474 323.042 71.893Q320.746 74.312 319.475 77.633Q318.204 80.954 318.204 84.89Q318.204 88.908 319.352 92.27Q320.5 95.632 322.755 98.051Q325.01 100.47 328.331 101.823Q331.652 103.176 335.916 103.176Q338.376 103.176 340.59 102.807Q342.804 102.438 344.69 101.618V91.04H333.62V79.724H357.564V110.474Z M403.122 114.0 390.576 90.958H385.82V114.0H372.044V55.944H394.184Q398.366 55.944 402.343 56.805Q406.32 57.666 409.477 59.716Q412.634 61.766 414.52 65.128Q416.406 68.49 416.406 73.492Q416.406 79.396 413.208 83.414Q410.01 87.432 404.352 89.154L419.522 114.0ZM402.548 73.738Q402.548 71.688 401.687 70.417Q400.826 69.146 399.473 68.449Q398.12 67.752 396.439 67.506Q394.758 67.26 393.2 67.26H385.738V80.79H392.38Q394.102 80.79 395.906 80.503Q397.71 80.216 399.186 79.478Q400.662 78.74 401.605 77.346Q402.548 75.952 402.548 73.738Z M489.926 84.726Q489.926 91.614 487.548 97.313Q485.17 103.012 480.947 107.071Q476.724 111.13 470.902 113.344Q465.08 115.558 458.274 115.558Q451.468 115.558 445.687 113.344Q439.906 111.13 435.683 107.071Q431.46 103.012 429.082 97.313Q426.704 91.614 426.704 84.726Q426.704 77.756 429.082 72.139Q431.46 66.522 435.683 62.586Q439.906 58.65 445.687 56.518Q451.468 54.386 458.274 54.386Q465.08 54.386 470.902 56.518Q476.724 58.65 480.947 62.586Q485.17 66.522 487.548 72.139Q489.926 77.756 489.926 84.726ZM474.92 84.726Q474.92 80.954 473.69 77.674Q472.46 74.394 470.287 72.057Q468.114 69.72 465.039 68.367Q461.964 67.014 458.274 67.014Q454.584 67.014 451.55 68.367Q448.516 69.72 446.302 72.057Q444.088 74.394 442.899 77.674Q441.71 80.954 441.71 84.726Q441.71 88.662 442.94 91.983Q444.17 95.304 446.343 97.682Q448.516 100.06 451.55 101.413Q454.584 102.766 458.274 102.766Q461.964 102.766 464.998 101.413Q468.032 100.06 470.246 97.682Q472.46 95.304 473.69 91.983Q474.92 88.662 474.92 84.726Z M562.708 84.726Q562.708 91.614 560.33 97.313Q557.952 103.012 553.729 107.071Q549.506 111.13 543.684 113.344Q537.862 115.558 531.056 115.558Q524.25 115.558 518.469 113.344Q512.688 111.13 508.465 107.071Q504.242 103.012 501.864 97.313Q499.486 91.614 499.486 84.726Q499.486 77.756 501.864 72.139Q504.242 66.522 508.465 62.586Q512.688 58.65 518.469 56.518Q524.25 54.386 531.056 54.386Q537.862 54.386 543.684 56.518Q549.506 58.65 553.729 62.586Q557.952 66.522 560.33 72.139Q562.708 77.756 562.708 84.726ZM547.702 84.726Q547.702 80.954 546.472 77.674Q545.242 74.394 543.069 72.057Q540.896 69.72 537.821 68.367Q534.746 67.014 531.056 67.014Q527.366 67.014 524.332 68.367Q521.298 69.72 519.084 72.057Q516.87 74.394 515.681 77.674Q514.492 80.954 514.492 84.726Q514.492 88.662 515.722 91.983Q516.952 95.304 519.125 97.682Q521.298 100.06 524.332 101.413Q527.366 102.766 531.056 102.766Q534.746 102.766 537.78 101.413Q540.814 100.06 543.028 97.682Q545.242 95.304 546.472 91.983Q547.702 88.662 547.702 84.726Z M603.756 114.0H589.734L567.758 55.944H583.502L596.95 97.108H597.278L610.644 55.944H626.142Z M633.898 114.0V55.944H672.93V67.834H647.428V78.74H671.536V89.974H647.428V102.028H674.406V114.0Z"/>
+      <path fill="#F4EFE6" d="M308.325 176.04H322.545V180.0H303.87V148.14H308.325Z M371.495 164.025Q371.495 167.715 370.213 170.798Q368.93 173.88 366.68 176.108Q364.43 178.335 361.325 179.573Q358.22 180.81 354.575 180.81Q350.93 180.81 347.847 179.573Q344.765 178.335 342.515 176.108Q340.265 173.88 339.005 170.798Q337.745 167.715 337.745 164.025Q337.745 160.29 339.005 157.208Q340.265 154.125 342.515 151.943Q344.765 149.76 347.847 148.545Q350.93 147.33 354.575 147.33Q358.22 147.33 361.325 148.545Q364.43 149.76 366.68 151.943Q368.93 154.125 370.213 157.208Q371.495 160.29 371.495 164.025ZM366.68 164.025Q366.68 161.415 365.825 159.098Q364.97 156.78 363.395 155.025Q361.82 153.27 359.593 152.258Q357.365 151.245 354.575 151.245Q351.83 151.245 349.603 152.258Q347.375 153.27 345.823 155.025Q344.27 156.78 343.415 159.098Q342.56 161.415 342.56 164.025Q342.56 166.68 343.415 169.02Q344.27 171.36 345.845 173.093Q347.42 174.825 349.625 175.815Q351.83 176.805 354.575 176.805Q357.32 176.805 359.57 175.815Q361.82 174.825 363.395 173.093Q364.97 171.36 365.825 169.02Q366.68 166.68 366.68 164.025Z M414.1 154.71Q412.66 153.135 410.433 152.19Q408.205 151.245 405.46 151.245Q402.67 151.245 400.42 152.258Q398.17 153.27 396.595 155.025Q395.02 156.78 394.165 159.098Q393.31 161.415 393.31 164.025Q393.31 166.68 394.165 169.02Q395.02 171.36 396.595 173.093Q398.17 174.825 400.465 175.815Q402.76 176.805 405.595 176.805Q407.845 176.805 409.735 176.4Q411.625 175.995 413.02 175.23V166.365H405.955V162.585H417.43V178.02Q414.91 179.37 411.94 180.09Q408.97 180.81 405.46 180.81Q401.725 180.81 398.598 179.573Q395.47 178.335 393.22 176.108Q390.97 173.88 389.71 170.798Q388.45 167.715 388.45 164.025Q388.45 160.29 389.733 157.208Q391.015 154.125 393.288 151.943Q395.56 149.76 398.665 148.545Q401.77 147.33 405.415 147.33Q409.24 147.33 412.233 148.455Q415.225 149.58 417.205 151.47Z M442.035 180.0H437.58V148.14H442.035Z M489.59 175.05Q487.7 177.615 484.685 179.213Q481.67 180.81 477.44 180.81Q473.795 180.81 470.713 179.573Q467.63 178.335 465.403 176.108Q463.175 173.88 461.915 170.798Q460.655 167.715 460.655 164.025Q460.655 160.29 461.938 157.208Q463.22 154.125 465.493 151.943Q467.765 149.76 470.87 148.545Q473.975 147.33 477.62 147.33Q479.24 147.33 480.905 147.645Q482.57 147.96 484.1 148.59Q485.63 149.22 486.89 150.143Q488.15 151.065 489.05 152.28L485.54 154.98Q484.37 153.36 482.233 152.303Q480.095 151.245 477.62 151.245Q474.83 151.245 472.603 152.258Q470.375 153.27 468.8 155.025Q467.225 156.78 466.37 159.098Q465.515 161.415 465.515 164.025Q465.515 166.725 466.348 169.065Q467.18 171.405 468.733 173.138Q470.285 174.87 472.513 175.86Q474.74 176.85 477.485 176.85Q480.185 176.85 482.39 175.77Q484.595 174.69 486.035 172.62Z M554.415 154.71Q552.975 153.135 550.748 152.19Q548.52 151.245 545.775 151.245Q542.985 151.245 540.735 152.258Q538.485 153.27 536.91 155.025Q535.335 156.78 534.48 159.098Q533.625 161.415 533.625 164.025Q533.625 166.68 534.48 169.02Q535.335 171.36 536.91 173.093Q538.485 174.825 540.78 175.815Q543.075 176.805 545.91 176.805Q548.16 176.805 550.05 176.4Q551.94 175.995 553.335 175.23V166.365H546.27V162.585H557.745V178.02Q555.225 179.37 552.255 180.09Q549.285 180.81 545.775 180.81Q542.04 180.81 538.913 179.573Q535.785 178.335 533.535 176.108Q531.285 173.88 530.025 170.798Q528.765 167.715 528.765 164.025Q528.765 160.29 530.048 157.208Q531.33 154.125 533.603 151.943Q535.875 149.76 538.98 148.545Q542.085 147.33 545.73 147.33Q549.555 147.33 552.548 148.455Q555.54 149.58 557.52 151.47Z M582.35 180.0H577.895V148.14H588.11Q590.405 148.14 592.475 148.613Q594.545 149.085 596.098 150.12Q597.65 151.155 598.55 152.843Q599.45 154.53 599.45 156.96Q599.45 160.47 597.29 162.63Q595.13 164.79 591.71 165.375L600.62 180.0H595.22L587.12 165.825H582.35ZM582.35 162.09H587.48Q589.055 162.09 590.405 161.82Q591.755 161.55 592.768 160.943Q593.78 160.335 594.365 159.368Q594.95 158.4 594.95 156.96Q594.95 155.52 594.365 154.553Q593.78 153.585 592.813 153.0Q591.845 152.415 590.54 152.168Q589.235 151.92 587.795 151.92H582.35Z M650.155 164.025Q650.155 167.715 648.873 170.798Q647.59 173.88 645.34 176.108Q643.09 178.335 639.985 179.573Q636.88 180.81 633.235 180.81Q629.59 180.81 626.507 179.573Q623.425 178.335 621.175 176.108Q618.925 173.88 617.665 170.798Q616.405 167.715 616.405 164.025Q616.405 160.29 617.665 157.208Q618.925 154.125 621.175 151.943Q623.425 149.76 626.507 148.545Q629.59 147.33 633.235 147.33Q636.88 147.33 639.985 148.545Q643.09 149.76 645.34 151.943Q647.59 154.125 648.873 157.208Q650.155 160.29 650.155 164.025ZM645.34 164.025Q645.34 161.415 644.485 159.098Q643.63 156.78 642.055 155.025Q640.48 153.27 638.253 152.258Q636.025 151.245 633.235 151.245Q630.49 151.245 628.263 152.258Q626.035 153.27 624.483 155.025Q622.93 156.78 622.075 159.098Q621.22 161.415 621.22 164.025Q621.22 166.68 622.075 169.02Q622.93 171.36 624.505 173.093Q626.08 174.825 628.285 175.815Q630.49 176.805 633.235 176.805Q635.98 176.805 638.23 175.815Q640.48 174.825 642.055 173.093Q643.63 171.36 644.485 169.02Q645.34 166.68 645.34 164.025Z M680.88 180.81Q677.73 180.81 675.39 179.753Q673.05 178.695 671.52 176.94Q669.99 175.185 669.248 172.913Q668.505 170.64 668.505 168.21V148.14H672.96V167.94Q672.96 169.56 673.365 171.158Q673.77 172.755 674.693 174.015Q675.615 175.275 677.123 176.04Q678.63 176.805 680.88 176.805Q683.085 176.805 684.615 176.04Q686.145 175.275 687.068 174.015Q687.99 172.755 688.395 171.158Q688.8 169.56 688.8 167.94V148.14H693.255V168.21Q693.255 170.64 692.513 172.913Q691.77 175.185 690.24 176.94Q688.71 178.695 686.37 179.753Q684.03 180.81 680.88 180.81Z M713.27 148.14H722.99Q725.555 148.14 727.67 148.658Q729.785 149.175 731.27 150.255Q732.755 151.335 733.565 153.0Q734.375 154.665 734.375 157.005Q734.375 159.39 733.498 161.1Q732.62 162.81 731.068 163.89Q729.515 164.97 727.378 165.488Q725.24 166.005 722.765 166.005H717.725V180.0H713.27ZM717.725 162.225H722.45Q724.07 162.225 725.443 161.933Q726.815 161.64 727.805 161.033Q728.795 160.425 729.335 159.435Q729.875 158.445 729.875 157.005Q729.875 155.565 729.313 154.598Q728.75 153.63 727.783 153.023Q726.815 152.415 725.465 152.168Q724.115 151.92 722.54 151.92H717.725Z"/>
+    </g>
+  </defs>
+</svg>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="grooves" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <p class="eyebrow"><span class="bar"></span>The Offer &middot; Groove Logic Group</p>
+        <h1>45 minutes today.<br>5&ndash;10 hours back <em>every week.</em></h1>
+        <p class="dek">A structured interview, then a written, client-specific prescription of 3&ndash;7 off-the-shelf AI tools &mdash; picked for your business, not a generic list. No implementation sold up front. Just the diagnosis.</p>
+        <div class="hero-cta">
+          <a href="#reserve" class="btn btn-primary">Reserve my assessment &rarr;</a>
+          <span class="guarantee mono">100% money-back if we can&rsquo;t find you 5&nbsp;hrs/week.</span>
+        </div>
+        <div class="price-card">
+          <span class="num">$999</span>
+          <span class="label">One-time. Discovery call + written report + review call.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="who">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="bar"></span>Who This Is For</p>
+        <h2>Owners doing the work of three people.</h2>
+      </div>
+      <div class="stats reveal d1">
+        <div class="stat"><div class="n">2&ndash;20</div><div class="l">Employees</div></div>
+        <div class="stat"><div class="n">$500K&ndash;$5M</div><div class="l">Annual revenue</div></div>
+        <div class="stat"><div class="n">40&ndash;60</div><div class="l">Hrs/week, owner</div></div>
+        <div class="stat"><div class="n">~5%</div><div class="l">Use AI beyond ChatGPT</div></div>
+      </div>
+      <ul class="feel reveal d2">
+        <li><span class="dot"></span>Too busy in the weeds to sit down and learn AI tools.</li>
+        <li><span class="dot"></span>Fairly sure competitors are quietly getting ahead.</li>
+        <li><span class="dot"></span>Don&rsquo;t know which tools exist &mdash; or which ones actually fit the business.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="bar"></span>Four Phases</p>
+        <h2>How the assessment runs.</h2>
+        <p>One straight line, start to finish &mdash; no discovery call turns into a sales pitch.</p>
+      </div>
+      <div class="phases reveal d1">
+        <div class="phase">
+          <div class="n">01 / DISCOVERY CALL</div>
+          <h3>The interview</h3>
+          <p>45 minutes, recorded. We ask where the day gets buried &mdash; we don&rsquo;t prescribe on the call.</p>
+        </div>
+        <div class="phase">
+          <div class="n">02 / AI ANALYSIS</div>
+          <h3>The research</h3>
+          <p>Transcript in, tool research and QA out. Every recommendation checked against what it actually does.</p>
+        </div>
+        <div class="phase">
+          <div class="n">03 / THE REPORT</div>
+          <h3>The prescription</h3>
+          <p>A simple, client-facing report: pain points, tools, cost, setup time, and hours returned.</p>
+        </div>
+        <div class="phase">
+          <div class="n">04 / REVIEW CALL</div>
+          <h3>The walkthrough</h3>
+          <p>30 minutes, screen-shared, recommendation by recommendation. You decide what happens next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="report">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="bar"></span>The Deliverable</p>
+        <h2>What&rsquo;s in your report.</h2>
+        <p>Nine sections, built around your transcript &mdash; not a template with your name pasted on top.</p>
+      </div>
+      <div class="report-list reveal d1">
+        <div><span class="i mono">01</span><span class="t">Executive summary</span><span class="d">Your main pain points, in your own words, and the single biggest outcome.</span></div>
+        <div><span class="i mono">02</span><span class="t">Impact matrix</span><span class="d">Quick wins vs. major projects, so effort maps to payoff.</span></div>
+        <div><span class="i mono">03</span><span class="t">Quick wins</span><span class="d">Each pain point paired one-to-one with the tool that solves it.</span></div>
+        <div><span class="i mono">04</span><span class="t">Recommended solutions</span><span class="d">Tool, cost, setup time, and hours returned per week &mdash; the core of the review call.</span></div>
+        <div><span class="i mono">05</span><span class="t">4-day quick start</span><span class="d">One 5&ndash;10 minute action per day. Most of the value, by Friday.</span></div>
+        <div><span class="i mono">06</span><span class="t">What comes after</span><span class="d">Higher-effort projects worth phasing in once the quick wins land.</span></div>
+        <div><span class="i mono">07</span><span class="t">Financial impact</span><span class="d">Hours returned &times; your hourly rate, net of tool cost &mdash; your monthly ROI.</span></div>
+        <div><span class="i mono">08</span><span class="t">Next steps</span><span class="d">The quick-start plan and your review call, booked.</span></div>
+      </div>
+
+      <div class="chips reveal d2">
+        <span class="chip">If it goes further: Process redesign</span>
+        <span class="chip">Automation build</span>
+        <span class="chip">Knowledge system</span>
+        <span class="chip">Custom Claude workflows</span>
+        <span class="chip">AI concierge retainer</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="reserve" class="form-section">
+    <div class="wrap">
+      <div class="form-card reveal">
+        <div class="form-copy">
+          <p class="eyebrow"><span class="bar"></span>Reserve Your Slot</p>
+          <h2>Get the details before you book.</h2>
+          <p>Tell us where to send the discovery-call scheduling link. No spam, no drip sequence &mdash; just what you need to book the 45 minutes.</p>
+          <ul>
+            <li><span class="dot"></span>A calendar link for the 45-minute discovery call.</li>
+            <li><span class="dot"></span>What to have ready before the call.</li>
+            <li><span class="dot"></span>The guarantee, in writing: 5&nbsp;hrs/week or your $999 back.</li>
+          </ul>
+        </div>
+        <form id="lead-form" novalidate>
+          <div class="row2 two">
+            <div class="field">
+              <label for="fname">Name</label>
+              <input id="fname" name="name" type="text" autocomplete="name" placeholder="Jordan Alvarez" required>
+            </div>
+            <div class="field">
+              <label for="fcompany">Business name</label>
+              <input id="fcompany" name="company" type="text" autocomplete="organization" placeholder="Alvarez & Co.">
+            </div>
+          </div>
+          <div class="field">
+            <label for="femail">Work email</label>
+            <input id="femail" name="email" type="email" autocomplete="email" placeholder="jordan@yourbusiness.com" required>
+          </div>
+          <div class="field">
+            <label for="fsize">Team size</label>
+            <select id="fsize" name="teamSize">
+              <option value="">Select one</option>
+              <option>Just me</option>
+              <option>2&ndash;5 employees</option>
+              <option>6&ndash;20 employees</option>
+              <option>21+ employees</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Send me the details &rarr;</button>
+          <p class="status mono" id="form-status" role="status" aria-live="polite"></p>
+          <p class="fineprint">Submitting opens a pre-filled email to Groove Logic Group &mdash; your details never leave your device except in that message.</p>
+          <p class="fineprint">Button not working? Email us directly at <a href="mailto:info@groovelogicgroup.com" style="text-decoration:underline;">info@groovelogicgroup.com</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="eyebrow" style="margin-bottom:0;"><span class="bar"></span>Questions before you reserve a slot? Email <a href="mailto:info@groovelogicgroup.com" style="text-decoration:underline;">info@groovelogicgroup.com</a></p>
+      <div class="row">
+        <svg class="brand-mark logo-light" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group" style="height:22px;">
+          <use href="#gh" fill="#101114"/>
+          <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+        </svg>
+        <svg class="brand-mark logo-dark" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group" style="height:22px;">
+          <use href="#gh"/>
+        </svg>
+        <span class="tagline">A Groove Logic Group company &middot; AI Tools Assessment</span>
+      </div>
+      <p class="legal">&copy; 2026 Groove Logic Group Inc. Figures shown are placeholders pending client-specific findings.</p>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  document.getElementById('lead-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(e.target);
+    var name = (data.get('name') || '').toString().trim();
+    var email = (data.get('email') || '').toString().trim();
+    var company = (data.get('company') || '').toString().trim();
+    var teamSize = (data.get('teamSize') || '').toString().trim();
+    var statusEl = document.getElementById('form-status');
+
+    if(!name || !email){
+      statusEl.textContent = 'Name and email are required.';
+      statusEl.className = 'status mono';
+      return;
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'lead_submit', form_name: 'ai_tools_assessment' });
+
+    var subject = 'AI Tools Assessment — ' + name + (company ? ' (' + company + ')' : '');
+    var bodyLines = [
+      'New assessment request:',
+      '',
+      'Name: ' + name,
+      'Email: ' + email,
+      'Business: ' + (company || '—'),
+      'Team size: ' + (teamSize || '—')
+    ];
+    var mailto = 'mailto:info@groovelogicgroup.com'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+
+    try{
+      var log = JSON.parse(localStorage.getItem('gtp_assessment_leads') || '[]');
+      log.push({ name: name, email: email, company: company, teamSize: teamSize, at: new Date().toISOString() });
+      localStorage.setItem('gtp_assessment_leads', JSON.stringify(log));
+    }catch(err){}
+
+    statusEl.textContent = 'Opening your email app to send this to Groove Logic Group…';
+    statusEl.className = 'status mono ok';
+    window.location.href = mailto;
+  });
+</script>
