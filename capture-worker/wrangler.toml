@@ -1,0 +1,18 @@
+# Snapshot capture — receives the /assessment and /find-the-leak forms,
+# stores each lead, emails a notification, and serves the queue to GRIPP OS.
+name = "snapshot-capture"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "LEADS"
+id = "014387efd71842718c0071c5a7bd2707"   # created by: npx wrangler kv namespace create LEADS
+
+[vars]
+ALLOWED_ORIGINS = "https://groovelogicgroup.com,https://www.groovelogicgroup.com"
+NOTIFY_TO = "info@groovelogicgroup.com"
+NOTIFY_FROM = "leads@groovelogicgroup.com"
+
+# Secrets (set with `npx wrangler secret put NAME`, never in this file):
+#   PULL_TOKEN   — shared token GRIPP OS presents to read/ack leads
+#   RESEND_API_KEY — optional; if unset, no email is sent (leads still stored)
