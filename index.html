@@ -141,6 +141,16 @@
   section{ padding:clamp(52px,8vw,88px) 0; }
   section + section{ border-top:1px solid var(--line); }
   .section-head{ max-width:62ch; margin-bottom:42px; }
+  /* Idea section: the copy describes the mark, so the mark sits beside it as the reference. */
+  .idea-head{ display:grid; gap:28px; align-items:center; margin-bottom:42px; }
+  .idea-head .section-head{ margin-bottom:0; }
+  .idea-mark{ display:flex; justify-content:center; align-items:center; }
+  .idea-mark svg{ width:min(100%, 220px); height:auto; }
+  @media(min-width:760px){
+    .idea-head{ grid-template-columns:minmax(0,62ch) 1fr; }
+    .idea-mark{ justify-content:flex-end; }
+    .idea-mark svg{ width:clamp(160px, 22vw, 240px); }
+  }
   .section-head h2{ font-size:clamp(25px,3.2vw,34px); font-weight:600; }
   .section-head p{ margin-top:14px; color:var(--fg-muted); font-size:15.5px; line-height:1.65; }
 
@@ -265,6 +275,22 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <g id="glg-g-light">
+      <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#101114" stroke-width="12.480"/>
+      <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#101114" stroke-width="12.480"/>
+      <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#101114" stroke-width="12.480"/>
+      <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+      <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+      <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+    </g>
+    <g id="glg-g-dark">
+      <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+    </g>
     <g id="family-color">
 <circle cx="150.0" cy="150.0" r="145.0" fill="none" stroke="#101114" stroke-width="6"/>
 <circle cx="150.0" cy="150.0" r="133.0" fill="none" stroke="#101114" stroke-width="1.75"/>
@@ -331,10 +357,16 @@
 
   <section id="idea">
     <div class="wrap">
+      <div class="idea-head">
       <div class="section-head reveal">
         <p class="eyebrow"><span class="bar"></span>The Idea</p>
         <h2>Groove is the curve. Logic is the line.</h2>
         <p>Our mark is a letter G built from concentric grooves &mdash; the kind you&rsquo;d find on a record, or a fingerprint &mdash; cut by one straight brass bar. That&rsquo;s not decoration. It&rsquo;s the whole company in one shape.</p>
+      </div>
+      <div class="idea-mark reveal d1" aria-hidden="true">
+        <svg class="logo-light" viewBox="40 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Groove Logic mark: concentric grooves cut by a brass bar"><use href="#glg-g-light"/></svg>
+        <svg class="logo-dark" viewBox="40 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Groove Logic mark: concentric grooves cut by a brass bar"><use href="#glg-g-dark"/></svg>
+      </div>
       </div>
       <div class="idea-grid reveal d1">
         <div class="idea-card">
