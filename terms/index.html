@@ -1,4 +1,4 @@
-<title>Terms & Policies — AI Assessment Snapshot &amp; Growth System — Groove Logic Group</title>
+<title>Terms & Policies — Groove Logic Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,440;0,9..144,600;0,9..144,680;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,50 +33,96 @@
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
   body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Manrope', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  .logo-dark{ display:none; }
+  :root[data-theme="dark"] .logo-light{ display:none; }
+  :root[data-theme="dark"] .logo-dark{ display:block; }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .logo-light{ display:none; }
+    :root:not([data-theme="light"]) .logo-dark{ display:block; }
+  }
   .wrap{ max-width:820px; margin:0 auto; padding:0 clamp(20px,5vw,56px); }
   h1,h2{ font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; letter-spacing:-.01em; }
   .mono{ font-family:'IBM Plex Mono', ui-monospace, Menlo, monospace; }
   .eyebrow{ display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-muted); margin:0 0 18px; }
   .bar{ display:inline-block; width:34px; height:3px; background:var(--brass); flex:none; }
   a{ color:inherit; }
-  header{ border-bottom:1px solid var(--line); }
+  header{ position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
   header .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
-  header .tag{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-muted); }
-  .btn-ghost{ background:transparent; color:var(--fg); border:1px solid var(--line); padding:10px 16px; border-radius:3px; font-family:'Manrope',sans-serif; font-weight:700; font-size:14px; text-decoration:none; }
+  .brand-mark{ height:26px; width:auto; display:block; }
+  header .tag{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-muted); display:none; }
+  @media(min-width:640px){ header .tag{ display:block; } }
+  .btn{ appearance:none; border:none; cursor:pointer; font-family:'Manrope', sans-serif; font-weight:700; font-size:14px; letter-spacing:.01em; padding:10px 16px; border-radius:3px; display:inline-flex; align-items:center; gap:10px; text-decoration:none; }
+  .btn-ghost{ background:transparent; color:var(--fg); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--accent); }
   .hero{ padding:clamp(48px,8vw,72px) 0 clamp(32px,5vw,48px); border-bottom:1px solid var(--line); }
-  .hero h1{ font-size:clamp(28px,4.4vw,42px); line-height:1.1; font-weight:600; max-width:20ch; }
+  .hero h1{ font-size:clamp(28px,4.4vw,42px); line-height:1.1; font-weight:600; max-width:22ch; }
   .hero .dek{ margin-top:16px; font-size:16px; line-height:1.6; color:var(--fg-muted); max-width:56ch; }
   .notice{ margin-top:24px; background:var(--surface-2); border-left:4px solid var(--accent); padding:14px 18px; font-size:14px; color:var(--fg-muted); border-radius:2px; }
   section.body{ padding:clamp(36px,6vw,56px) 0; }
   .doc h2{ font-size:20px; font-weight:600; margin-top:44px; }
   .doc h2:first-child{ margin-top:0; }
+  .doc h3{ font-family:'Manrope',sans-serif; font-size:14.5px; font-weight:700; margin-top:22px; color:var(--fg); }
   .doc p, .doc li{ font-size:15px; line-height:1.65; color:var(--fg-muted); }
   .doc p{ margin:12px 0 0; }
   .doc ul{ margin:12px 0 0; padding-left:20px; }
   .doc li{ margin:6px 0; }
   .doc strong{ color:var(--fg); }
-  footer{ padding:36px 0 48px; border-top:1px solid var(--line); margin-top:20px; }
-  footer .nav{ display:flex; flex-wrap:wrap; gap:16px; font-size:13.5px; margin-bottom:14px; }
-  footer .nav a{ text-decoration:underline; color:var(--fg-muted); }
-  footer .legal{ font-size:12px; color:var(--fg-muted); }
-  footer a{ text-decoration:underline; }
+  .legal-flag{ margin:14px 0 0; background:var(--surface-2); border-left:4px solid var(--accent); padding:12px 16px; font-size:13.5px; border-radius:2px; }
+  footer{ padding:44px 0 56px; }
+  footer .row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; padding-top:28px; border-top:1px solid var(--line); }
+  footer .tagline{ font-size:13px; color:var(--fg-muted); }
+  footer .brand-mark{ height:20px; }
+  footer .legal{ font-size:12px; color:var(--fg-muted); margin-top:14px; }
 </style>
 
 <header>
   <div class="wrap">
-    <a href="/" style="font-family:'Fraunces',serif;font-weight:600;font-size:18px;text-decoration:none;">Groove Logic Group</a>
+    <a href="/" aria-label="Groove Logic Group home" style="display:flex;align-items:center;">
+      <svg class="brand-mark logo-light" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group">
+        <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+        <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+        <path fill="#101114" d="M357.564 110.474Q353.3 112.688 347.601 114.082Q341.902 115.476 335.178 115.476Q328.208 115.476 322.345 113.262Q316.482 111.048 312.259 107.03Q308.036 103.012 305.658 97.395Q303.28 91.778 303.28 84.89Q303.28 77.92 305.699 72.262Q308.118 66.604 312.382 62.627Q316.646 58.65 322.386 56.518Q328.126 54.386 334.768 54.386Q341.656 54.386 347.56 56.477Q353.464 58.568 357.154 62.094L348.298 72.18Q346.248 69.802 342.886 68.285Q339.524 66.768 335.26 66.768Q331.57 66.768 328.454 68.121Q325.338 69.474 323.042 71.893Q320.746 74.312 319.475 77.633Q318.204 80.954 318.204 84.89Q318.204 88.908 319.352 92.27Q320.5 95.632 322.755 98.051Q325.01 100.47 328.331 101.823Q331.652 103.176 335.916 103.176Q338.376 103.176 340.59 102.807Q342.804 102.438 344.69 101.618V91.04H333.62V79.724H357.564V110.474Z M403.122 114.0 390.576 90.958H385.82V114.0H372.044V55.944H394.184Q398.366 55.944 402.343 56.805Q406.32 57.666 409.477 59.716Q412.634 61.766 414.52 65.128Q416.406 68.49 416.406 73.492Q416.406 79.396 413.208 83.414Q410.01 87.432 404.352 89.154L419.522 114.0ZM402.548 73.738Q402.548 71.688 401.687 70.417Q400.826 69.146 399.473 68.449Q398.12 67.752 396.439 67.506Q394.758 67.26 393.2 67.26H385.738V80.79H392.38Q394.102 80.79 395.906 80.503Q397.71 80.216 399.186 79.478Q400.662 78.74 401.605 77.346Q402.548 75.952 402.548 73.738Z M489.926 84.726Q489.926 91.614 487.548 97.313Q485.17 103.012 480.947 107.071Q476.724 111.13 470.902 113.344Q465.08 115.558 458.274 115.558Q451.468 115.558 445.687 113.344Q439.906 111.13 435.683 107.071Q431.46 103.012 429.082 97.313Q426.704 91.614 426.704 84.726Q426.704 77.756 429.082 72.139Q431.46 66.522 435.683 62.586Q439.906 58.65 445.687 56.518Q451.468 54.386 458.274 54.386Q465.08 54.386 470.902 56.518Q476.724 58.65 480.947 62.586Q485.17 66.522 487.548 72.139Q489.926 77.756 489.926 84.726ZM474.92 84.726Q474.92 80.954 473.69 77.674Q472.46 74.394 470.287 72.057Q468.114 69.72 465.039 68.367Q461.964 67.014 458.274 67.014Q454.584 67.014 451.55 68.367Q448.516 69.72 446.302 72.057Q444.088 74.394 442.899 77.674Q441.71 80.954 441.71 84.726Q441.71 88.662 442.94 91.983Q444.17 95.304 446.343 97.682Q448.516 100.06 451.55 101.413Q454.584 102.766 458.274 102.766Q461.964 102.766 464.998 101.413Q468.032 100.06 470.246 97.682Q472.46 95.304 473.69 91.983Q474.92 88.662 474.92 84.726Z M562.708 84.726Q562.708 91.614 560.33 97.313Q557.952 103.012 553.729 107.071Q549.506 111.13 543.684 113.344Q537.862 115.558 531.056 115.558Q524.25 115.558 518.469 113.344Q512.688 111.13 508.465 107.071Q504.242 103.012 501.864 97.313Q499.486 91.614 499.486 84.726Q499.486 77.756 501.864 72.139Q504.242 66.522 508.465 62.586Q512.688 58.65 518.469 56.518Q524.25 54.386 531.056 54.386Q537.862 54.386 543.684 56.518Q549.506 58.65 553.729 62.586Q557.952 66.522 560.33 72.139Q562.708 77.756 562.708 84.726ZM547.702 84.726Q547.702 80.954 546.472 77.674Q545.242 74.394 543.069 72.057Q540.896 69.72 537.821 68.367Q534.746 67.014 531.056 67.014Q527.366 67.014 524.332 68.367Q521.298 69.72 519.084 72.057Q516.87 74.394 515.681 77.674Q514.492 80.954 514.492 84.726Q514.492 88.662 515.722 91.983Q516.952 95.304 519.125 97.682Q521.298 100.06 524.332 101.413Q527.366 102.766 531.056 102.766Q534.746 102.766 537.78 101.413Q540.814 100.06 543.028 97.682Q545.242 95.304 546.472 91.983Q547.702 88.662 547.702 84.726Z M603.756 114.0H589.734L567.758 55.944H583.502L596.95 97.108H597.278L610.644 55.944H626.142Z M633.898 114.0V55.944H672.93V67.834H647.428V78.74H671.536V89.974H647.428V102.028H674.406V114.0Z"/>
+        <path fill="#101114" d="M308.325 176.04H322.545V180.0H303.87V148.14H308.325Z M371.495 164.025Q371.495 167.715 370.213 170.798Q368.93 173.88 366.68 176.108Q364.43 178.335 361.325 179.573Q358.22 180.81 354.575 180.81Q350.93 180.81 347.847 179.573Q344.765 178.335 342.515 176.108Q340.265 173.88 339.005 170.798Q337.745 167.715 337.745 164.025Q337.745 160.29 339.005 157.208Q340.265 154.125 342.515 151.943Q344.765 149.76 347.847 148.545Q350.93 147.33 354.575 147.33Q358.22 147.33 361.325 148.545Q364.43 149.76 366.68 151.943Q368.93 154.125 370.213 157.208Q371.495 160.29 371.495 164.025ZM366.68 164.025Q366.68 161.415 365.825 159.098Q364.97 156.78 363.395 155.025Q361.82 153.27 359.593 152.258Q357.365 151.245 354.575 151.245Q351.83 151.245 349.603 152.258Q347.375 153.27 345.823 155.025Q344.27 156.78 343.415 159.098Q342.56 161.415 342.56 164.025Q342.56 166.68 343.415 169.02Q344.27 171.36 345.845 173.093Q347.42 174.825 349.625 175.815Q351.83 176.805 354.575 176.805Q357.32 176.805 359.57 175.815Q361.82 174.825 363.395 173.093Q364.97 171.36 365.825 169.02Q366.68 166.68 366.68 164.025Z M414.1 154.71Q412.66 153.135 410.433 152.19Q408.205 151.245 405.46 151.245Q402.67 151.245 400.42 152.258Q398.17 153.27 396.595 155.025Q395.02 156.78 394.165 159.098Q393.31 161.415 393.31 164.025Q393.31 166.68 394.165 169.02Q395.02 171.36 396.595 173.093Q398.17 174.825 400.465 175.815Q402.76 176.805 405.595 176.805Q407.845 176.805 409.735 176.4Q411.625 175.995 413.02 175.23V166.365H405.955V162.585H417.43V178.02Q414.91 179.37 411.94 180.09Q408.97 180.81 405.46 180.81Q401.725 180.81 398.598 179.573Q395.47 178.335 393.22 176.108Q390.97 173.88 389.71 170.798Q388.45 167.715 388.45 164.025Q388.45 160.29 389.733 157.208Q391.015 154.125 393.288 151.943Q395.56 149.76 398.665 148.545Q401.77 147.33 405.415 147.33Q409.24 147.33 412.233 148.455Q415.225 149.58 417.205 151.47Z M442.035 180.0H437.58V148.14H442.035Z M489.59 175.05Q487.7 177.615 484.685 179.213Q481.67 180.81 477.44 180.81Q473.795 180.81 470.713 179.573Q467.63 178.335 465.403 176.108Q463.175 173.88 461.915 170.798Q460.655 167.715 460.655 164.025Q460.655 160.29 461.938 157.208Q463.22 154.125 465.493 151.943Q467.765 149.76 470.87 148.545Q473.975 147.33 477.62 147.33Q479.24 147.33 480.905 147.645Q482.57 147.96 484.1 148.59Q485.63 149.22 486.89 150.143Q488.15 151.065 489.05 152.28L485.54 154.98Q484.37 153.36 482.233 152.303Q480.095 151.245 477.62 151.245Q474.83 151.245 472.603 152.258Q470.375 153.27 468.8 155.025Q467.225 156.78 466.37 159.098Q465.515 161.415 465.515 164.025Q465.515 166.725 466.348 169.065Q467.18 171.405 468.733 173.138Q470.285 174.87 472.513 175.86Q474.74 176.85 477.485 176.85Q480.185 176.85 482.39 175.77Q484.595 174.69 486.035 172.62Z M554.415 154.71Q552.975 153.135 550.748 152.19Q548.52 151.245 545.775 151.245Q542.985 151.245 540.735 152.258Q538.485 153.27 536.91 155.025Q535.335 156.78 534.48 159.098Q533.625 161.415 533.625 164.025Q533.625 166.68 534.48 169.02Q535.335 171.36 536.91 173.093Q538.485 174.825 540.78 175.815Q543.075 176.805 545.91 176.805Q548.16 176.805 550.05 176.4Q551.94 175.995 553.335 175.23V166.365H546.27V162.585H557.745V178.02Q555.225 179.37 552.255 180.09Q549.285 180.81 545.775 180.81Q542.04 180.81 538.913 179.573Q535.785 178.335 533.535 176.108Q531.285 173.88 530.025 170.798Q528.765 167.715 528.765 164.025Q528.765 160.29 530.048 157.208Q531.33 154.125 533.603 151.943Q535.875 149.76 538.98 148.545Q542.085 147.33 545.73 147.33Q549.555 147.33 552.548 148.455Q555.54 149.58 557.52 151.47Z M582.35 180.0H577.895V148.14H588.11Q590.405 148.14 592.475 148.613Q594.545 149.085 596.098 150.12Q597.65 151.155 598.55 152.843Q599.45 154.53 599.45 156.96Q599.45 160.47 597.29 162.63Q595.13 164.79 591.71 165.375L600.62 180.0H595.22L587.12 165.825H582.35ZM582.35 162.09H587.48Q589.055 162.09 590.405 161.82Q591.755 161.55 592.768 160.943Q593.78 160.335 594.365 159.368Q594.95 158.4 594.95 156.96Q594.95 155.52 594.365 154.553Q593.78 153.585 592.813 153.0Q591.845 152.415 590.54 152.168Q589.235 151.92 587.795 151.92H582.35Z M650.155 164.025Q650.155 167.715 648.873 170.798Q647.59 173.88 645.34 176.108Q643.09 178.335 639.985 179.573Q636.88 180.81 633.235 180.81Q629.59 180.81 626.507 179.573Q623.425 178.335 621.175 176.108Q618.925 173.88 617.665 170.798Q616.405 167.715 616.405 164.025Q616.405 160.29 617.665 157.208Q618.925 154.125 621.175 151.943Q623.425 149.76 626.507 148.545Q629.59 147.33 633.235 147.33Q636.88 147.33 639.985 148.545Q643.09 149.76 645.34 151.943Q647.59 154.125 648.873 157.208Q650.155 160.29 650.155 164.025ZM645.34 164.025Q645.34 161.415 644.485 159.098Q643.63 156.78 642.055 155.025Q640.48 153.27 638.253 152.258Q636.025 151.245 633.235 151.245Q630.49 151.245 628.263 152.258Q626.035 153.27 624.483 155.025Q622.93 156.78 622.075 159.098Q621.22 161.415 621.22 164.025Q621.22 166.68 622.075 169.02Q622.93 171.36 624.505 173.093Q626.08 174.825 628.285 175.815Q630.49 176.805 633.235 176.805Q635.98 176.805 638.23 175.815Q640.48 174.825 642.055 173.093Q643.63 171.36 644.485 169.02Q645.34 166.68 645.34 164.025Z M680.88 180.81Q677.73 180.81 675.39 179.753Q673.05 178.695 671.52 176.94Q669.99 175.185 669.248 172.913Q668.505 170.64 668.505 168.21V148.14H672.96V167.94Q672.96 169.56 673.365 171.158Q673.77 172.755 674.693 174.015Q675.615 175.275 677.123 176.04Q678.63 176.805 680.88 176.805Q683.085 176.805 684.615 176.04Q686.145 175.275 687.068 174.015Q687.99 172.755 688.395 171.158Q688.8 169.56 688.8 167.94V148.14H693.255V168.21Q693.255 170.64 692.513 172.913Q691.77 175.185 690.24 176.94Q688.71 178.695 686.37 179.753Q684.03 180.81 680.88 180.81Z M713.27 148.14H722.99Q725.555 148.14 727.67 148.658Q729.785 149.175 731.27 150.255Q732.755 151.335 733.565 153.0Q734.375 154.665 734.375 157.005Q734.375 159.39 733.498 161.1Q732.62 162.81 731.068 163.89Q729.515 164.97 727.378 165.488Q725.24 166.005 722.765 166.005H717.725V180.0H713.27ZM717.725 162.225H722.45Q724.07 162.225 725.443 161.933Q726.815 161.64 727.805 161.033Q728.795 160.425 729.335 159.435Q729.875 158.445 729.875 157.005Q729.875 155.565 729.313 154.598Q728.75 153.63 727.783 153.023Q726.815 152.415 725.465 152.168Q724.115 151.92 722.54 151.92H717.725Z"/>
+      </svg>
+      <svg class="brand-mark logo-dark" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group">
+        <use href="#gh"/>
+      </svg>
+    </a>
     <span class="tag">Terms &amp; Policies</span>
+    <a href="/" class="btn btn-ghost">&larr; Back home</a>
   </div>
 </header>
 
-<main>
+<!-- hidden reverse-brass wordmark definition, referenced by header dark logo -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="gh">
+      <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#F4EFE6" stroke-width="12.480"/>
+      <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+      <path fill="#F4EFE6" d="M357.564 110.474Q353.3 112.688 347.601 114.082Q341.902 115.476 335.178 115.476Q328.208 115.476 322.345 113.262Q316.482 111.048 312.259 107.03Q308.036 103.012 305.658 97.395Q303.28 91.778 303.28 84.89Q303.28 77.92 305.699 72.262Q308.118 66.604 312.382 62.627Q316.646 58.65 322.386 56.518Q328.126 54.386 334.768 54.386Q341.656 54.386 347.56 56.477Q353.464 58.568 357.154 62.094L348.298 72.18Q346.248 69.802 342.886 68.285Q339.524 66.768 335.26 66.768Q331.57 66.768 328.454 68.121Q325.338 69.474 323.042 71.893Q320.746 74.312 319.475 77.633Q318.204 80.954 318.204 84.89Q318.204 88.908 319.352 92.27Q320.5 95.632 322.755 98.051Q325.01 100.47 328.331 101.823Q331.652 103.176 335.916 103.176Q338.376 103.176 340.59 102.807Q342.804 102.438 344.69 101.618V91.04H333.62V79.724H357.564V110.474Z M403.122 114.0 390.576 90.958H385.82V114.0H372.044V55.944H394.184Q398.366 55.944 402.343 56.805Q406.32 57.666 409.477 59.716Q412.634 61.766 414.52 65.128Q416.406 68.49 416.406 73.492Q416.406 79.396 413.208 83.414Q410.01 87.432 404.352 89.154L419.522 114.0ZM402.548 73.738Q402.548 71.688 401.687 70.417Q400.826 69.146 399.473 68.449Q398.12 67.752 396.439 67.506Q394.758 67.26 393.2 67.26H385.738V80.79H392.38Q394.102 80.79 395.906 80.503Q397.71 80.216 399.186 79.478Q400.662 78.74 401.605 77.346Q402.548 75.952 402.548 73.738Z M489.926 84.726Q489.926 91.614 487.548 97.313Q485.17 103.012 480.947 107.071Q476.724 111.13 470.902 113.344Q465.08 115.558 458.274 115.558Q451.468 115.558 445.687 113.344Q439.906 111.13 435.683 107.071Q431.46 103.012 429.082 97.313Q426.704 91.614 426.704 84.726Q426.704 77.756 429.082 72.139Q431.46 66.522 435.683 62.586Q439.906 58.65 445.687 56.518Q451.468 54.386 458.274 54.386Q465.08 54.386 470.902 56.518Q476.724 58.65 480.947 62.586Q485.17 66.522 487.548 72.139Q489.926 77.756 489.926 84.726ZM474.92 84.726Q474.92 80.954 473.69 77.674Q472.46 74.394 470.287 72.057Q468.114 69.72 465.039 68.367Q461.964 67.014 458.274 67.014Q454.584 67.014 451.55 68.367Q448.516 69.72 446.302 72.057Q444.088 74.394 442.899 77.674Q441.71 80.954 441.71 84.726Q441.71 88.662 442.94 91.983Q444.17 95.304 446.343 97.682Q448.516 100.06 451.55 101.413Q454.584 102.766 458.274 102.766Q461.964 102.766 464.998 101.413Q468.032 100.06 470.246 97.682Q472.46 95.304 473.69 91.983Q474.92 88.662 474.92 84.726Z M562.708 84.726Q562.708 91.614 560.33 97.313Q557.952 103.012 553.729 107.071Q549.506 111.13 543.684 113.344Q537.862 115.558 531.056 115.558Q524.25 115.558 518.469 113.344Q512.688 111.13 508.465 107.071Q504.242 103.012 501.864 97.313Q499.486 91.614 499.486 84.726Q499.486 77.756 501.864 72.139Q504.242 66.522 508.465 62.586Q512.688 58.65 518.469 56.518Q524.25 54.386 531.056 54.386Q537.862 54.386 543.684 56.518Q549.506 58.65 553.729 62.586Q557.952 66.522 560.33 72.139Q562.708 77.756 562.708 84.726ZM547.702 84.726Q547.702 80.954 546.472 77.674Q545.242 74.394 543.069 72.057Q540.896 69.72 537.821 68.367Q534.746 67.014 531.056 67.014Q527.366 67.014 524.332 68.367Q521.298 69.72 519.084 72.057Q516.87 74.394 515.681 77.674Q514.492 80.954 514.492 84.726Q514.492 88.662 515.722 91.983Q516.952 95.304 519.125 97.682Q521.298 100.06 524.332 101.413Q527.366 102.766 531.056 102.766Q534.746 102.766 537.78 101.413Q540.814 100.06 543.028 97.682Q545.242 95.304 546.472 91.983Q547.702 88.662 547.702 84.726Z M603.756 114.0H589.734L567.758 55.944H583.502L596.95 97.108H597.278L610.644 55.944H626.142Z M633.898 114.0V55.944H672.93V67.834H647.428V78.74H671.536V89.974H647.428V102.028H674.406V114.0Z"/>
+      <path fill="#F4EFE6" d="M308.325 176.04H322.545V180.0H303.87V148.14H308.325Z M371.495 164.025Q371.495 167.715 370.213 170.798Q368.93 173.88 366.68 176.108Q364.43 178.335 361.325 179.573Q358.22 180.81 354.575 180.81Q350.93 180.81 347.847 179.573Q344.765 178.335 342.515 176.108Q340.265 173.88 339.005 170.798Q337.745 167.715 337.745 164.025Q337.745 160.29 339.005 157.208Q340.265 154.125 342.515 151.943Q344.765 149.76 347.847 148.545Q350.93 147.33 354.575 147.33Q358.22 147.33 361.325 148.545Q364.43 149.76 366.68 151.943Q368.93 154.125 370.213 157.208Q371.495 160.29 371.495 164.025ZM366.68 164.025Q366.68 161.415 365.825 159.098Q364.97 156.78 363.395 155.025Q361.82 153.27 359.593 152.258Q357.365 151.245 354.575 151.245Q351.83 151.245 349.603 152.258Q347.375 153.27 345.823 155.025Q344.27 156.78 343.415 159.098Q342.56 161.415 342.56 164.025Q342.56 166.68 343.415 169.02Q344.27 171.36 345.845 173.093Q347.42 174.825 349.625 175.815Q351.83 176.805 354.575 176.805Q357.32 176.805 359.57 175.815Q361.82 174.825 363.395 173.093Q364.97 171.36 365.825 169.02Q366.68 166.68 366.68 164.025Z M414.1 154.71Q412.66 153.135 410.433 152.19Q408.205 151.245 405.46 151.245Q402.67 151.245 400.42 152.258Q398.17 153.27 396.595 155.025Q395.02 156.78 394.165 159.098Q393.31 161.415 393.31 164.025Q393.31 166.68 394.165 169.02Q395.02 171.36 396.595 173.093Q398.17 174.825 400.465 175.815Q402.76 176.805 405.595 176.805Q407.845 176.805 409.735 176.4Q411.625 175.995 413.02 175.23V166.365H405.955V162.585H417.43V178.02Q414.91 179.37 411.94 180.09Q408.97 180.81 405.46 180.81Q401.725 180.81 398.598 179.573Q395.47 178.335 393.22 176.108Q390.97 173.88 389.71 170.798Q388.45 167.715 388.45 164.025Q388.45 160.29 389.733 157.208Q391.015 154.125 393.288 151.943Q395.56 149.76 398.665 148.545Q401.77 147.33 405.415 147.33Q409.24 147.33 412.233 148.455Q415.225 149.58 417.205 151.47Z M442.035 180.0H437.58V148.14H442.035Z M489.59 175.05Q487.7 177.615 484.685 179.213Q481.67 180.81 477.44 180.81Q473.795 180.81 470.713 179.573Q467.63 178.335 465.403 176.108Q463.175 173.88 461.915 170.798Q460.655 167.715 460.655 164.025Q460.655 160.29 461.938 157.208Q463.22 154.125 465.493 151.943Q467.765 149.76 470.87 148.545Q473.975 147.33 477.62 147.33Q479.24 147.33 480.905 147.645Q482.57 147.96 484.1 148.59Q485.63 149.22 486.89 150.143Q488.15 151.065 489.05 152.28L485.54 154.98Q484.37 153.36 482.233 152.303Q480.095 151.245 477.62 151.245Q474.83 151.245 472.603 152.258Q470.375 153.27 468.8 155.025Q467.225 156.78 466.37 159.098Q465.515 161.415 465.515 164.025Q465.515 166.725 466.348 169.065Q467.18 171.405 468.733 173.138Q470.285 174.87 472.513 175.86Q474.74 176.85 477.485 176.85Q480.185 176.85 482.39 175.77Q484.595 174.69 486.035 172.62Z M554.415 154.71Q552.975 153.135 550.748 152.19Q548.52 151.245 545.775 151.245Q542.985 151.245 540.735 152.258Q538.485 153.27 536.91 155.025Q535.335 156.78 534.48 159.098Q533.625 161.415 533.625 164.025Q533.625 166.68 534.48 169.02Q535.335 171.36 536.91 173.093Q538.485 174.825 540.78 175.815Q543.075 176.805 545.91 176.805Q548.16 176.805 550.05 176.4Q551.94 175.995 553.335 175.23V166.365H546.27V162.585H557.745V178.02Q555.225 179.37 552.255 180.09Q549.285 180.81 545.775 180.81Q542.04 180.81 538.913 179.573Q535.785 178.335 533.535 176.108Q531.285 173.88 530.025 170.798Q528.765 167.715 528.765 164.025Q528.765 160.29 530.048 157.208Q531.33 154.125 533.603 151.943Q535.875 149.76 538.98 148.545Q542.085 147.33 545.73 147.33Q549.555 147.33 552.548 148.455Q555.54 149.58 557.52 151.47Z M582.35 180.0H577.895V148.14H588.11Q590.405 148.14 592.475 148.613Q594.545 149.085 596.098 150.12Q597.65 151.155 598.55 152.843Q599.45 154.53 599.45 156.96Q599.45 160.47 597.29 162.63Q595.13 164.79 591.71 165.375L600.62 180.0H595.22L587.12 165.825H582.35ZM582.35 162.09H587.48Q589.055 162.09 590.405 161.82Q591.755 161.55 592.768 160.943Q593.78 160.335 594.365 159.368Q594.95 158.4 594.95 156.96Q594.95 155.52 594.365 154.553Q593.78 153.585 592.813 153.0Q591.845 152.415 590.54 152.168Q589.235 151.92 587.795 151.92H582.35Z M650.155 164.025Q650.155 167.715 648.873 170.798Q647.59 173.88 645.34 176.108Q643.09 178.335 639.985 179.573Q636.88 180.81 633.235 180.81Q629.59 180.81 626.507 179.573Q623.425 178.335 621.175 176.108Q618.925 173.88 617.665 170.798Q616.405 167.715 616.405 164.025Q616.405 160.29 617.665 157.208Q618.925 154.125 621.175 151.943Q623.425 149.76 626.507 148.545Q629.59 147.33 633.235 147.33Q636.88 147.33 639.985 148.545Q643.09 149.76 645.34 151.943Q647.59 154.125 648.873 157.208Q650.155 160.29 650.155 164.025ZM645.34 164.025Q645.34 161.415 644.485 159.098Q643.63 156.78 642.055 155.025Q640.48 153.27 638.253 152.258Q636.025 151.245 633.235 151.245Q630.49 151.245 628.263 152.258Q626.035 153.27 624.483 155.025Q622.93 156.78 622.075 159.098Q621.22 161.415 621.22 164.025Q621.22 166.68 622.075 169.02Q622.93 171.36 624.505 173.093Q626.08 174.825 628.285 175.815Q630.49 176.805 633.235 176.805Q635.98 176.805 638.23 175.815Q640.48 174.825 642.055 173.093Q643.63 171.36 644.485 169.02Q645.34 166.68 645.34 164.025Z M680.88 180.81Q677.73 180.81 675.39 179.753Q673.05 178.695 671.52 176.94Q669.99 175.185 669.248 172.913Q668.505 170.64 668.505 168.21V148.14H672.96V167.94Q672.96 169.56 673.365 171.158Q673.77 172.755 674.693 174.015Q675.615 175.275 677.123 176.04Q678.63 176.805 680.88 176.805Q683.085 176.805 684.615 176.04Q686.145 175.275 687.068 174.015Q687.99 172.755 688.395 171.158Q688.8 169.56 688.8 167.94V148.14H693.255V168.21Q693.255 170.64 692.513 172.913Q691.77 175.185 690.24 176.94Q688.71 178.695 686.37 179.753Q684.03 180.81 680.88 180.81Z M713.27 148.14H722.99Q725.555 148.14 727.67 148.658Q729.785 149.175 731.27 150.255Q732.755 151.335 733.565 153.0Q734.375 154.665 734.375 157.005Q734.375 159.39 733.498 161.1Q732.62 162.81 731.068 163.89Q729.515 164.97 727.378 165.488Q725.24 166.005 722.765 166.005H717.725V180.0H713.27ZM717.725 162.225H722.45Q724.07 162.225 725.443 161.933Q726.815 161.64 727.805 161.033Q728.795 160.425 729.335 159.435Q729.875 158.445 729.875 157.005Q729.875 155.565 729.313 154.598Q728.75 153.63 727.783 153.023Q726.815 152.415 725.465 152.168Q724.115 151.92 722.54 151.92H717.725Z"/>
+    </g>
+  </defs>
+</svg>
+
+<main id="top">
+
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow"><span class="bar"></span>Effective for bookings on or after [DATE]</p>
-      <h1>Terms, cancellation, and privacy — AI Assessment Snapshot &amp; Groove Logic Growth System</h1>
-      <p class="dek">Plain language, not a wall of legalese. If something here is unclear on a call, ask — we'll fix the wording, not just the answer.</p>
-      <div class="notice"><strong>Draft — not yet approved for publication.</strong> This page is not currently linked from any indexed page and is not final. Gripp reviews and approves before it's treated as in effect, and decides below whether qualified legal review is needed first (see §7).</div>
+      <p class="eyebrow"><span class="bar"></span>Effective for bookings on or after September 21, 2026</p>
+      <h1>Terms, cancellation, and privacy &mdash; AI Assessment Snapshot &amp; Groove Logic Growth System</h1>
+      <p class="dek">Plain language, not a wall of legalese. If something here is unclear on a call, ask &mdash; we&rsquo;ll fix the wording, not just the answer.</p>
+      <div class="notice"><strong>Approved and ready to publish.</strong> &sect;7 (dispute resolution) is the one section still pending attorney review and will be added once that's complete &mdash; everything else on this page is final.</div>
     </div>
   </section>
 
@@ -87,40 +133,53 @@
       <p><strong>What it is:</strong> one scoped diagnostic session plus a written Snapshot report and a report-review call, for the flat fee shown at booking ($997 as of this draft). Payment is collected up front via the Stripe link on the booking page.</p>
       <p><strong>What it is not:</strong> implementation, custom development, software purchase, integrations, data migration, or ongoing support. It is not legal, tax, financial, cybersecurity, or medical advice.</p>
 
-      <h2>2. Rescheduling and cancellation — Snapshot</h2>
+      <h2>2. Rescheduling and cancellation &mdash; Snapshot</h2>
       <ul>
-        <li><strong>Reschedule:</strong> free, any time up to 24 hours before the scheduled session — just reply to the confirmation email.</li>
-        <li><strong>Cancel with 24+ hours' notice:</strong> full refund, no questions asked.</li>
-        <li><strong>Cancel with less than 24 hours' notice, or a no-show:</strong> the fee is retained, since the session time was held and prep work may already be underway. One exception can be made per client for a genuine emergency.</li>
-        <li><strong>Once the session has happened:</strong> the fee is earned and the report will be delivered; it is not refunded for not liking the findings. (The findings themselves come with no promised outcome — see §1.)</li>
+        <li><strong>Reschedule:</strong> free, any time up to 24 hours before the scheduled session &mdash; just reply to the confirmation email.</li>
+        <li><strong>Cancel with 24+ hours&rsquo; notice:</strong> full refund, no questions asked.</li>
+        <li><strong>Cancel with less than 24 hours&rsquo; notice, or a no-show:</strong> the fee is retained, since the session time was held and prep work may already be underway. One exception can be made per client for a genuine emergency.</li>
+        <li><strong>Once the session has happened:</strong> the fee is earned and the report will be delivered; it is not refunded for not liking the findings. (The findings themselves come with no promised outcome &mdash; see &sect;1.)</li>
       </ul>
 
       <h2>3. The Groove Logic Growth System (recurring)</h2>
       <ul>
         <li><strong>Billing:</strong> monthly, in advance, at the tier selected (Starter / Growth / Scale).</li>
         <li><strong>Term:</strong> month-to-month. No long-term contract by default.</li>
-        <li><strong>Cancellation:</strong> cancel any time with 30 days' written notice (an email to <a href="mailto:info@groovelogicgroup.com">info@groovelogicgroup.com</a> is enough). Access continues through the end of the notice period; no partial-month refund for the notice period itself.</li>
-        <li><strong>If you cancel:</strong> you may be offered the option to keep the underlying tools/data running at a reduced monthly fee instead of losing access outright — that offer, if made, will always be optional and clearly priced separately, never automatic.</li>
+        <li><strong>Cancellation:</strong> cancel any time with 30 days&rsquo; written notice (an email to <a href="mailto:info@groovelogicgroup.com">info@groovelogicgroup.com</a> is enough). Access continues through the end of the notice period; no partial-month refund for the notice period itself.</li>
+        <li><strong>If you cancel:</strong> you may be offered the option to keep the underlying tools/data running at a reduced monthly fee instead of losing access outright &mdash; that offer, if made, will always be optional and clearly priced separately, never automatic.</li>
         <li><strong>Tier changes:</strong> you can move up or down a tier at your next billing date as your team size changes; no penalty either direction.</li>
       </ul>
 
       <h2>4. What we ask you not to share</h2>
-      <p>Please do not send passwords, API keys, financial account numbers, government ID numbers, health information, or other sensitive/regulated records — during the Snapshot, the discovery process, or as part of the Growth System. If something like that is ever needed for a specific piece of work, we'll ask for it through a secure, purpose-built method at that time, not by email or in a form.</p>
+      <p>Please do not send passwords, API keys, financial account numbers, government ID numbers, health information, or other sensitive/regulated records &mdash; during the Snapshot, the discovery process, or as part of the Growth System. If something like that is ever needed for a specific piece of work, we&rsquo;ll ask for it through a secure, purpose-built method at that time, not by email or in a form.</p>
 
-      <h2>5. Privacy — what we collect and what we do with it</h2>
+      <h2>5. Privacy &mdash; what we collect and what we do with it</h2>
       <p>The intake form and booking flow collect: your name, business name, email, and a description of the workflow you want looked at. That information is used only to prepare for and deliver your Snapshot or Growth System service, and to follow up with you about it.</p>
       <ul>
-        <li>We don't sell your information or share it with third parties for their own marketing.</li>
-        <li>We don't add you to a newsletter or drip sequence from this form — you get a personal reply, and nothing else, unless you separately opt in to something else later.</li>
+        <li>We don&rsquo;t sell your information or share it with third parties for their own marketing.</li>
+        <li>We don&rsquo;t add you to a newsletter or drip sequence from this form &mdash; you get a personal reply, and nothing else, unless you separately opt in to something else later.</li>
         <li>Information you share during a Snapshot session about your business is used only to prepare your report, and is not shared outside Groove Logic Group without your permission.</li>
         <li>You can ask at any time what we have on file for your business and ask us to delete it, by emailing <a href="mailto:info@groovelogicgroup.com">info@groovelogicgroup.com</a>.</li>
       </ul>
 
       <h2>6. Taxes</h2>
-      <p><strong>[FLAGGED — NOT YET CONFIRMED]:</strong> whether South Carolina sales tax applies to the Snapshot and/or the Growth System (professional/consulting services vs. a taxable software-adjacent service can be treated differently) has not been confirmed with an accountant. Until that's resolved, prices shown are treated as the full amount charged, with no tax added at checkout. This needs a CPA's read before it can be stated as settled — flagging it here rather than guessing.</p>
+      <p><strong>Researched, not yet CPA-confirmed &mdash; treat as a strong starting point, not a filed position.</strong> South Carolina doesn&rsquo;t tax most professional/consulting services outright &mdash; it taxes tangible personal property plus a specific, enumerated list of services (repair, certain communications services, and, by Department of Revenue ruling, software accessed remotely through a browser &mdash; &ldquo;Application Service Provider&rdquo; access &mdash; treated as a taxable communications service under SC Revenue Rulings 05-13 and 12-1).</p>
+      <p>Applied to these two offers specifically:</p>
+      <ul>
+        <li><strong>The Snapshot</strong> &mdash; a diagnostic session and a written report, no software access delivered &mdash; falls on the professional-services side and is very likely <strong>not taxable</strong>.</li>
+        <li><strong>The Growth System</strong> &mdash; ongoing access to a hosted system through a browser &mdash; matches the ASP/SaaS pattern SC has specifically ruled taxable. Likely <strong>subject to sales tax</strong>.</li>
+        <li>South Carolina is <strong>destination-based</strong>: the rate charged depends on where the customer is located, not on Columbia. The state rate is 6%, and counties add up to 3% more locally &mdash; Richland County (Columbia) is 8% combined, but a client elsewhere in SC could sit at a different combined rate.</li>
+        <li>If a Growth System client ever also gets meaningful hands-on consulting bundled in, <strong>keeping that itemized as a separate line from the platform-access fee</strong> on the invoice is what SC guidance points to for keeping the consulting piece untaxed &mdash; bundling it in undifferentiated risks pulling the whole thing under the taxable side.</li>
+      </ul>
+      <p>This is a solid, sourced starting point (see the session log for the source links), not a filed tax position &mdash; get it confirmed by your CPA once one&rsquo;s engaged (Phase 0 of the charter), and before it&rsquo;s treated as settled here.</p>
 
-      <h2>7. Governing law and disputes</h2>
-      <p>These terms are governed by the laws of the State of South Carolina, without regard to conflict-of-law rules. [Placeholder — dispute-resolution language (e.g., informal resolution first, then binding arbitration vs. courts, and where) is not drafted here and should come from qualified legal review before this section is finalized.]</p>
+      <h2>7. Governing Law and Disputes</h2>
+      <p>These terms are governed by the laws of the State of South Carolina, without regard to conflict-of-law rules.</p>
+
+      <h3>(a) Informal Resolution</h3>
+      <p>Before filing a formal claim, you and Groove Logic Group Inc. agree to try to resolve any dispute informally. You can initiate this process by emailing a notice of your dispute to <a href="mailto:info@groovelogicgroup.com">info@groovelogicgroup.com</a>. If the dispute is not resolved within thirty (30) days of the notice, either party may bring a formal proceeding.</p>
+
+      <div class="legal-flag"><strong>Arbitration, venue, and class-action-waiver terms are being finalized with counsel and will be added here.</strong> Until then, disputes not resolved informally under (a) proceed under ordinary South Carolina law rather than binding arbitration. This section will be updated once that review is complete.</div>
 
       <h2>8. Changes to these terms</h2>
       <p>These terms may be updated from time to time; the version in effect at the time you book governs that engagement. Material changes affecting an active Growth System subscription will be communicated by email at least 30 days before they take effect.</p>
@@ -130,8 +189,24 @@
 
   <footer>
     <div class="wrap">
-      <div class="nav"><a href="/">Home</a><a href="/assessment/">AI Assessment Snapshot</a><a href="mailto:info@groovelogicgroup.com">Email us</a></div>
-      <p class="legal">Questions about any of this? Email <a href="mailto:info@groovelogicgroup.com">info@groovelogicgroup.com</a>. &copy; [YEAR] Groove Logic Group Inc. All rights reserved.</p>
+      <p class="eyebrow" style="margin-bottom:0;"><span class="bar"></span>Questions about any of this? Email <a href="mailto:info@groovelogicgroup.com" style="text-decoration:underline;">info@groovelogicgroup.com</a></p>
+      <div class="row">
+        <svg class="brand-mark logo-light" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group" style="height:22px;">
+          <use href="#gh" fill="#101114"/>
+          <path d="M231.782 141.120 A113.760 113.760 0 1 1 170.400 18.014" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M209.707 141.120 A92.160 92.160 0 1 1 170.400 42.842" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M187.325 141.120 A70.560 70.560 0 1 1 170.400 70.618" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M164.170 141.120 A48.960 48.960 0 1 1 164.170 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <path d="M137.393 141.120 A27.360 27.360 0 1 1 137.393 98.880" fill="none" stroke="#101114" stroke-width="12.480"/>
+          <rect x="117.504" y="108.000" width="122.496" height="24.000" fill="#C9A24A"/>
+        </svg>
+        <svg class="brand-mark logo-dark" viewBox="-40 -40 816.175 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Groove Logic Group" style="height:22px;">
+          <use href="#gh"/>
+        </svg>
+        <span class="tagline">A Groove Logic Group company &middot; Terms &amp; Policies</span>
+      </div>
+      <p class="legal">&copy; 2026 Groove Logic Group Inc. All rights reserved.</p>
     </div>
   </footer>
+
 </main>
