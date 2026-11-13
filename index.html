@@ -92,12 +92,15 @@
   /* 2026-11-04 phones: one fact card per row (must stay after the 820px rule) */
   @media (max-width:480px){.facts,.inst .facts{grid-template-columns:1fr;gap:10px}.fact.long b{font-size:20px}.fact.long .fact-emoji{width:40px;height:40px;margin:-2px 0}.fact{padding:14px 16px}}
   .notify{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;max-width:560px}
-  .notify input[type=email]{flex:1 1 260px;min-height:50px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--fg);font:inherit;font-size:16px}
-  .notify input[type=email]:focus{outline:3px solid var(--accent);outline-offset:2px}
+  .notify input[type=email],.notify input[type=text],.notify input[type=tel]{flex:1 1 100%;min-height:50px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--fg);font:inherit;font-size:16px}
+  .notify input:focus{outline:3px solid var(--accent);outline-offset:2px}
   .notify button{border:0;cursor:pointer;font-family:inherit}
   .notify button[disabled]{opacity:.6;cursor:wait}
   .sr,.hp{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   #notify{scroll-margin-top:20px}
+  /* 2026-11-13 (Gripp): Launching 2027! in the app headline font (Impact, caps), 48px */
+  .eyebrow.launch{font-family:Impact,"Haettenschweiler","Arial Narrow Bold","Franklin Gothic Condensed",sans-serif;font-weight:400;font-size:clamp(26px,7.4vw,48px);line-height:1;letter-spacing:.02em;color:var(--fg);white-space:nowrap}
+  .eyebrow.launch .bar{width:clamp(30px,7vw,64px);height:clamp(4px,1vw,6px)}
 </style>
 </head>
 <body>
@@ -150,32 +153,17 @@
       </div>
     </section>
 
-    <section id="pricing">
-      <div class="eyebrow"><span class="bar"></span>Lifetime Access</div>
-      <h2>No Subscription</h2>
-      <p class="price-sub">Pay for it once and keep it. Can you dig it!</p>
-      <div class="tiers">
-        <div class="tier">
-          <h3>ACCESS</h3>
-          <div class="price">Launching 2027!</div>
-          <p>For new operators and assistants ready to start working: the full Foundation Path, the Master Book, Ask Gripp, the Network and the job board.</p>
-          <a class="btn line" href="#notify">Get notified</a>
-        </div>
-        <div class="tier feat">
-          <h3>MEMBERSHIP</h3>
-          <div class="price">Launching 2027!</div>
-          <p>For operators running a business: everything in ACCESS plus the Rate Card tools, a scheduled one-on-one call with Gripp, job posting and a company listing.</p>
-          <a class="btn main" href="#notify">Get notified</a>
-        </div>
-      </div>
-    </section>
-    <section id="notify">
-      <div class="eyebrow"><span class="bar"></span>Launching 2027!</div>
+    <section id="notify"><span id="pricing"></span>
+      <div class="eyebrow launch"><span class="bar"></span>Launching 2027!</div>
       <h2>Be first through the doors.</h2>
-      <p class="about">JODT opens in 2027. Drop your email and you get one message when enrollment opens. No spam, no list selling.</p>
+      <p class="about">JODT opens in 2027. Drop your name and email and you get one message when enrollment opens. No spam, no list selling.</p>
       <form id="notifyForm" class="notify" novalidate>
+        <label class="sr" for="notifyName">Name</label>
+        <input id="notifyName" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Your name" required>
         <label class="sr" for="notifyEmail">Email address</label>
         <input id="notifyEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="you@email.com" required>
+        <label class="sr" for="notifyPhone">Phone (optional)</label>
+        <input id="notifyPhone" name="phone" type="tel" autocomplete="tel" maxlength="25" placeholder="Phone (optional)">
         <div class="hp" aria-hidden="true"><label for="notifyCompany">Company</label><input id="notifyCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn main" type="submit">Notify me</button>
       </form>
@@ -190,22 +178,25 @@
 </div>
 <script>
 (function(){
-  var f=document.getElementById('notifyForm'),m=document.getElementById('notifyMsg'),em=document.getElementById('notifyEmail'),hp=document.getElementById('notifyCompany');
+  var f=document.getElementById('notifyForm'),m=document.getElementById('notifyMsg'),em=document.getElementById('notifyEmail'),nm=document.getElementById('notifyName'),ph=document.getElementById('notifyPhone'),hp=document.getElementById('notifyCompany');
   if(!f) return;
   var RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   f.addEventListener('submit',function(e){
     e.preventDefault();
-    var email=(em.value||'').trim(),b=f.querySelector('button');
+    var email=(em.value||'').trim(),name=(nm.value||'').trim(),phone=(ph.value||'').trim(),b=f.querySelector('button');
+    if(!name){m.textContent='Please add your name.';return;}
     if(!RE.test(email)||email.length>254){m.textContent='Enter a valid email address.';return;}
     b.disabled=true;m.textContent='Saving…';
     fetch('https://jodt.groovelogicgroup.com/api/waitlist',{method:'POST',mode:'cors',credentials:'omit',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:email,company:hp.value||'',src:'glg'})})
-    .then(function(r){
+      body:JSON.stringify({name:name,email:email,phone:phone,company:hp.value||'',src:'glg'})})
+    .then(function(r){return r.json().catch(function(){return {};}).then(function(d){
       if(r.ok){f.reset();m.textContent='You’re on the list. We’ll email you when JODT opens in 2027.';}
       else if(r.status===429){m.textContent='Too many tries. Wait a bit and try again.';}
+      else if(d.error==='invalid_name'){m.textContent='Please add your name.';}
+      else if(d.error==='invalid_phone'){m.textContent='That phone number doesn’t look right. Fix it or leave it blank.';}
       else{m.textContent='That didn’t go through. Check the email and try again.';}
-    })
+    });})
     .catch(function(){m.textContent='Connection problem. Try again in a moment.';})
     .then(function(){b.disabled=false;});
   });
