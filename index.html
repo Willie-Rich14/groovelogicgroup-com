@@ -96,6 +96,11 @@
   .notify input:focus{outline:3px solid var(--accent);outline-offset:2px}
   .notify button{border:0;cursor:pointer;font-family:inherit}
   .notify button[disabled]{opacity:.6;cursor:wait}
+  .notify-msg{color:#FF8A70;font-weight:700;font-size:15px}
+  .notify-done{max-width:560px;margin-top:22px;padding:24px 22px;border:2px solid var(--lime);border-radius:18px;background:rgba(200,230,91,.08)}
+  .notify-done .ck{font-size:42px;line-height:1;color:var(--lime)}
+  .notify-done .t{font-size:22px;font-weight:800;margin:12px 0 6px}
+  .notify-done .s{color:var(--fg-muted);margin:0}
   .sr,.hp{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   #notify{scroll-margin-top:20px}
   /* 2026-11-13 (Gripp): Launching 2027! in the app headline font (Impact, caps), 48px */
@@ -167,7 +172,12 @@
         <div class="hp" aria-hidden="true"><label for="notifyCompany">Company</label><input id="notifyCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn main" type="submit">Notify me</button>
       </form>
-      <p id="notifyMsg" class="fine" role="status" aria-live="polite"></p>
+      <p id="notifyMsg" class="fine notify-msg" role="alert"></p>
+      <div id="notifyDone" class="notify-done" hidden tabindex="-1">
+        <div class="ck" aria-hidden="true">✓</div>
+        <p class="t">You’re on the list<span id="notifyDoneName"></span>.</p>
+        <p class="s">JODT got it. We’ll email you when the doors open in 2027.</p>
+      </div>
     </section>
   </main>
 
@@ -186,19 +196,19 @@
     var email=(em.value||'').trim(),name=(nm.value||'').trim(),phone=(ph.value||'').trim(),b=f.querySelector('button');
     if(!name){m.textContent='Please add your name.';return;}
     if(!RE.test(email)||email.length>254){m.textContent='Enter a valid email address.';return;}
-    b.disabled=true;m.textContent='Saving…';
+    b.disabled=true;b.textContent='Sending…';m.textContent='';
     fetch('https://jodt.groovelogicgroup.com/api/waitlist',{method:'POST',mode:'cors',credentials:'omit',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name,email:email,phone:phone,company:hp.value||'',src:'glg'})})
     .then(function(r){return r.json().catch(function(){return {};}).then(function(d){
-      if(r.ok){f.reset();m.textContent='You’re on the list. We’ll email you when JODT opens in 2027.';}
+      if(r.ok){var dn=document.getElementById('notifyDone'),nn=document.getElementById('notifyDoneName');if(nn)nn.textContent=', '+name.split(/\s+/)[0].slice(0,40);f.hidden=true;f.style.display='none';m.textContent='';if(dn){dn.hidden=false;try{dn.scrollIntoView({behavior:'smooth',block:'center'});}catch(x){}try{dn.focus({preventScroll:true});}catch(x){}}return;}
       else if(r.status===429){m.textContent='Too many tries. Wait a bit and try again.';}
       else if(d.error==='invalid_name'){m.textContent='Please add your name.';}
       else if(d.error==='invalid_phone'){m.textContent='That phone number doesn’t look right. Fix it or leave it blank.';}
       else{m.textContent='That didn’t go through. Check the email and try again.';}
     });})
     .catch(function(){m.textContent='Connection problem. Try again in a moment.';})
-    .then(function(){b.disabled=false;});
+    .then(function(){b.disabled=false;b.textContent='Notify me';});
   });
 })();
 </script>
