@@ -96,6 +96,8 @@
   .notify input:focus{outline:3px solid var(--accent);outline-offset:2px}
   .notify button{border:0;cursor:pointer;font-family:inherit}
   .notify button[disabled]{opacity:.6;cursor:wait}
+  .notify-text{flex:1 1 100%;display:flex;gap:10px;align-items:center;font-size:15px;color:var(--fg-muted);cursor:pointer}
+  .notify-text input{width:20px;height:20px;accent-color:var(--lime)}
   .notify-msg{color:#FF8A70;font-weight:700;font-size:15px}
   .notify-done{max-width:560px;margin-top:22px;padding:24px 22px;border:2px solid var(--lime);border-radius:18px;background:rgba(200,230,91,.08)}
   .notify-done .ck{font-size:42px;line-height:1;color:var(--lime)}
@@ -169,6 +171,7 @@
         <input id="notifyEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="you@email.com" required>
         <label class="sr" for="notifyPhone">Phone (optional)</label>
         <input id="notifyPhone" name="phone" type="tel" autocomplete="tel" maxlength="25" placeholder="Phone (optional)">
+        <label class="notify-text" for="notifyText"><input id="notifyText" name="text_ok" type="checkbox"> Text me about the JODT launch (optional)</label>
         <div class="hp" aria-hidden="true"><label for="notifyCompany">Company</label><input id="notifyCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn main" type="submit">Notify me</button>
       </form>
@@ -177,6 +180,8 @@
         <div class="ck" aria-hidden="true">✓</div>
         <p class="t">You’re on the list<span id="notifyDoneName"></span>.</p>
         <p class="s">JODT got it. We’ll email you when the doors open in 2027.</p>
+        <p class="s" id="notifyDoneText" hidden style="margin-top:12px;font-weight:700;color:var(--lime)">Gripp will also text you.</p>
+        <p class="s" style="margin-top:12px;font-weight:700;color:var(--fg)">New to the list? We just sent you a confirmation email. Don’t see it? Check your Promotions and Spam folders.</p>
       </div>
     </section>
   </main>
@@ -196,12 +201,12 @@
     var email=(em.value||'').trim(),name=(nm.value||'').trim(),phone=(ph.value||'').trim(),b=f.querySelector('button');
     if(!name){m.textContent='Please add your name.';return;}
     if(!RE.test(email)||email.length>254){m.textContent='Enter a valid email address.';return;}
-    b.disabled=true;b.textContent='Sending…';m.textContent='';
+    var tx=!!(document.getElementById('notifyText')&&document.getElementById('notifyText').checked&&phone);b.disabled=true;b.textContent='Sending…';m.textContent='';
     fetch('https://jodt.groovelogicgroup.com/api/waitlist',{method:'POST',mode:'cors',credentials:'omit',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:name,email:email,phone:phone,company:hp.value||'',src:'glg'})})
+      body:JSON.stringify({name:name,email:email,phone:phone,text_ok:tx,company:hp.value||'',src:'glg'})})
     .then(function(r){return r.json().catch(function(){return {};}).then(function(d){
-      if(r.ok){var dn=document.getElementById('notifyDone'),nn=document.getElementById('notifyDoneName');if(nn)nn.textContent=', '+name.split(/\s+/)[0].slice(0,40);f.hidden=true;f.style.display='none';m.textContent='';if(dn){dn.hidden=false;try{dn.scrollIntoView({behavior:'smooth',block:'center'});}catch(x){}try{dn.focus({preventScroll:true});}catch(x){}}return;}
+      if(r.ok){var dn=document.getElementById('notifyDone'),nn=document.getElementById('notifyDoneName');if(nn)nn.textContent=', '+name.split(/\s+/)[0].slice(0,40);var dt=document.getElementById('notifyDoneText');if(dt)dt.hidden=!tx;f.hidden=true;f.style.display='none';m.textContent='';if(dn){dn.hidden=false;try{dn.scrollIntoView({behavior:'smooth',block:'center'});}catch(x){}try{dn.focus({preventScroll:true});}catch(x){}}return;}
       else if(r.status===429){m.textContent='Too many tries. Wait a bit and try again.';}
       else if(d.error==='invalid_name'){m.textContent='Please add your name.';}
       else if(d.error==='invalid_phone'){m.textContent='That phone number doesn’t look right. Fix it or leave it blank.';}
